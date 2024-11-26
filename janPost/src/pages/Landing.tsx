@@ -54,7 +54,19 @@ const Landing = () => {
           </Grid2>
         </Grid2>
       </Paper>
-      <ButtonGroup fullWidth variant="outlined" aria-label="Basic button group">
+      <ButtonGroup
+        sx={{
+          position: "sticky",
+          top: 62,
+          bgcolor: "rgb(239 239 239)",
+          paddingY: 1,
+          zIndex: 2,
+        }}
+        fullWidth
+        variant="outlined"
+        aria-label="Basic button group"
+        size="small"
+      >
         <Button color="primary">All Articles</Button>
         <Button>WebDevelopment</Button>
         <Button>Cyber Security</Button>
