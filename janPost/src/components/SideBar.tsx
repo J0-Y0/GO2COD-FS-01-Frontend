@@ -1,10 +1,13 @@
 import React from "react";
-
-import List from "@mui/material/List";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import Collapse from "@mui/material/Collapse";
+import {
+  List,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Collapse,
+  Divider,
+  Stack,
+} from "@mui/material";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import CreateIcon from "@mui/icons-material/Create";
 import ExpandLess from "@mui/icons-material/ExpandLess";
@@ -12,7 +15,6 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
 import AutoStoriesIcon from "@mui/icons-material/AutoStories";
 import PublishedWithChangesIcon from "@mui/icons-material/PublishedWithChanges";
 import SaveAsIcon from "@mui/icons-material/SaveAs";
-import { Divider, Stack } from "@mui/material";
 
 const SideBar = () => {
   const [open, setOpen] = React.useState(true);
@@ -22,64 +24,76 @@ const SideBar = () => {
   };
 
   return (
-    <>
-      <Stack
-        direction="row"
-        // sx={{
-        //   height: "50vh",
-        //   width: "100%",
-        //   maxWidth: 250,
-        //   overflowY: "auto",
-        // }}
+    <Stack direction="row">
+      <List
+        sx={{
+          width: "100%",
+          maxWidth: 250,
+          bgcolor: "background.paper",
+          color: "text.primary",
+          overflowY: "auto",
+          height: "100vh",
+          borderRight: `1px solid #354656`,
+          "& .MuiListItemButton-root": {
+            "&:hover": {
+              bgcolor: "#4a9d9c", // primary-200 for hover
+              color: "#FFFFFF", // Ensure contrast on hover
+            },
+          },
+          "&::-webkit-scrollbar": {
+            width: "8px",
+          },
+          "&::-webkit-scrollbar-track": {
+            background: "transparent",
+          },
+          "&::-webkit-scrollbar-thumb": {
+            backgroundColor: "rgba(255, 255, 255, 0.2)",
+            borderRadius: "4px",
+          },
+          "&::-webkit-scrollbar-thumb:hover": {
+            backgroundColor: "rgba(255, 255, 255, 0.3)",
+          },
+        }}
+        component="nav"
       >
-        <List
-          component="nav"
-          // aria-labelledby="nested-list-subheader"
-          // subheader={
-          //   <ListSubheader component="div" id="nested-list-subheader">
-          //     Blog Navigation
-          //   </ListSubheader>
-          // }
-        >
-          <ListItemButton>
-            <ListItemIcon>
-              <AutoStoriesIcon />
-            </ListItemIcon>
-            <ListItemText primary="Your Feed" />
-          </ListItemButton>
-          <ListItemButton>
-            <ListItemIcon>
-              <BookmarkIcon />
-            </ListItemIcon>
-            <ListItemText primary="Bookmarked Posts" />
-          </ListItemButton>
-          <ListItemButton onClick={handleClick}>
-            <ListItemIcon>
-              <CreateIcon />
-            </ListItemIcon>
-            <ListItemText primary="Manage Posts" />
-            {open ? <ExpandLess /> : <ExpandMore />}
-          </ListItemButton>
-          <Collapse in={open} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-              <ListItemButton sx={{ pl: 4 }}>
-                <ListItemIcon>
-                  <PublishedWithChangesIcon />
-                </ListItemIcon>
-                <ListItemText primary="Published Posts" />
-              </ListItemButton>
-              <ListItemButton sx={{ pl: 4 }}>
-                <ListItemIcon>
-                  <SaveAsIcon />
-                </ListItemIcon>
-                <ListItemText primary="Drafts" />
-              </ListItemButton>
-            </List>
-          </Collapse>
-        </List>
-        <Divider orientation="vertical" flexItem />
-      </Stack>
-    </>
+        <ListItemButton>
+          <ListItemIcon>
+            <AutoStoriesIcon sx={{ color: "#afffff" }} /> {/* primary-300 */}
+          </ListItemIcon>
+          <ListItemText primary="Your Feed" />
+        </ListItemButton>
+        <ListItemButton>
+          <ListItemIcon>
+            <BookmarkIcon sx={{ color: "#afffff" }} /> {/* primary-300 */}
+          </ListItemIcon>
+          <ListItemText primary="Bookmarked Posts" />
+        </ListItemButton>
+        <ListItemButton onClick={handleClick}>
+          <ListItemIcon>
+            <CreateIcon sx={{ color: "#afffff" }} /> {/* primary-300 */}
+          </ListItemIcon>
+          <ListItemText primary="Manage Posts" />
+          {open ? <ExpandLess /> : <ExpandMore />}
+        </ListItemButton>
+        <Collapse in={open} timeout="auto" unmountOnExit>
+          <List component="div" disablePadding>
+            <ListItemButton sx={{ pl: 4 }}>
+              <ListItemIcon>
+                <PublishedWithChangesIcon sx={{ color: "#afffff" }} />
+              </ListItemIcon>
+              <ListItemText primary="Published Posts" />
+            </ListItemButton>
+            <ListItemButton sx={{ pl: 4 }}>
+              <ListItemIcon>
+                <SaveAsIcon sx={{ color: "#afffff" }} />
+              </ListItemIcon>
+              <ListItemText primary="Drafts" />
+            </ListItemButton>
+          </List>
+        </Collapse>
+      </List>
+      <Divider orientation="vertical" flexItem />
+    </Stack>
   );
 };
 

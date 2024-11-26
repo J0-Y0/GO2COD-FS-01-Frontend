@@ -11,7 +11,10 @@ interface Props {
 
 const PostCard = ({ index }: Props) => {
   return (
-    <Card key={index} sx={{ maxWidth: { xs: 450, sm: 300, md: 320, lg: 400 } }}>
+    <Card
+      key={index}
+      sx={{ maxWidth: { xs: 450, sm: 300, md: 320, lg: 400 }, borderRadius: 2 }}
+    >
       <CardMedia
         sx={{ height: 140 }}
         image={`https://picsum.photos/id/${index}/500/300`}

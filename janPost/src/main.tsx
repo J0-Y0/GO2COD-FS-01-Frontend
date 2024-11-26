@@ -6,9 +6,12 @@ import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
+import BlogThemeProvider from "./components/BlogThemeProvider.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <App />
+    <BlogThemeProvider>
+      <App />
+    </BlogThemeProvider>
   </StrictMode>
 );

@@ -42,8 +42,11 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
     },
   ],
 }));
+interface Props {
+  index: number;
+}
 
-export default function PostLargeCard() {
+export default function PostLargeCard({ index }: Props) {
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
@@ -69,7 +72,7 @@ export default function PostLargeCard() {
       <CardMedia
         component="img"
         height="194"
-        image={`https://picsum.photos/id/54/500/300`}
+        image={`https://picsum.photos/id/1${index}/600/300`}
         alt="Paella dish"
       />
       <CardContent>
