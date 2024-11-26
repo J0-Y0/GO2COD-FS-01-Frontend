@@ -41,7 +41,7 @@ function ResponsiveAppBar() {
 
   return (
     <AppBar
-      position="static"
+      position="sticky"
       color="inherit"
       elevation={0}
       sx={{ borderBottom: "1px lightgray solid" }}
@@ -93,15 +93,13 @@ function ResponsiveAppBar() {
               onClose={handleCloseNavMenu}
               sx={{ display: { xs: "block", md: "none" } }}
             >
-              {
-                //   pages.map((page) => (
-                //   <MenuItem key={page} onClick={handleCloseNavMenu}>
-                //     <Typography sx={{ textAlign: "center", color: "#787" }}>
-                //       {page}
-                //     </Typography>
-                //   </MenuItem>
-                // ))
-              }
+              {pages.map((page) => (
+                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                  <Typography sx={{ textAlign: "center", color: "#787" }}>
+                    {page}
+                  </Typography>
+                </MenuItem>
+              ))}
             </Menu>
           </Box>
           <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
@@ -135,8 +133,10 @@ function ResponsiveAppBar() {
             ))}
           </Box>
 
-          <Button variant="outlined">Join us</Button>
-          {/* <Box sx={{ flexGrow: 0 }}>
+          <Button sx={{ marginX: 1 }} variant="outlined">
+            Join us{" "}
+          </Button>
+          <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
@@ -166,7 +166,7 @@ function ResponsiveAppBar() {
                 </MenuItem>
               ))}
             </Menu>
-          </Box> */}
+          </Box>
         </Toolbar>
       </Container>
     </AppBar>

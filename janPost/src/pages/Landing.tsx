@@ -1,5 +1,6 @@
 import { Padding } from "@mui/icons-material";
 import {
+  Box,
   Button,
   ButtonGroup,
   Grid2,
@@ -8,11 +9,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import * as React from "react";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
+import PostCard from "../components/PostCard";
 
 const Landing = () => {
   const top5 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
@@ -31,7 +28,7 @@ const Landing = () => {
           </Grid2>
           <Grid2
             size={{ sm: 12, md: 6 }}
-            sx={{ padding: 3 }}
+            sx={{ paddingX: { xs: 1, md: 3 }, paddingY: 3 }}
             alignContent="center"
           >
             <Typography variant="h5">
@@ -67,36 +64,65 @@ const Landing = () => {
 
       <Stack
         spacing={{ xs: 1, sm: 2 }}
-        marginY={4}
+        marginY={8}
         direction="row"
         useFlexGap
         sx={{ flexWrap: "wrap" }}
-        justifyContent="space-between"
+        justifyContent="space-evenly"
       >
-        {top5.map((post) => (
-          <Card sx={{ maxWidth: 345 }}>
-            <CardMedia
-              sx={{ height: 140 }}
-              image="/static/images/cards/contemplative-reptile.jpg"
-              title="green iguana"
-            />
-
-            <CardContent key={post}>
-              <Typography gutterBottom variant="h5" component="div">
-                Lizard
-              </Typography>
-              <Typography variant="body2" sx={{ color: "text.secondary" }}>
-                Lizards are a widespread group of squamate reptiles, with over
-                6,000 species, ranging across all continents except Antarctica
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <Button size="small">Share</Button>
-              <Button size="small">Learn More</Button>
-            </CardActions>
-          </Card>
+        {top5.map((post: number) => (
+          <PostCard index={post} />
         ))}
       </Stack>
+      <Box
+        sx={{
+          background: "linear-gradient(135deg, #bcaaaa, #000000)",
+          color: "white",
+          p: 4,
+          marginY: 10,
+          borderRadius: 3,
+          textAlign: "center",
+          boxShadow: 3,
+          // maxWidth: 500,
+          mx: "auto",
+          mt: 4,
+        }}
+      >
+        <Typography
+          variant="h4"
+          fontWeight="bold"
+          gutterBottom
+          sx={{ textShadow: "0 2px 5px rgba(0, 0, 0, 0.3)" }}
+        >
+          Share Your Thoughts
+        </Typography>
+
+        <Typography
+          variant="body1"
+          sx={{
+            mb: 3,
+            fontSize: "1.1rem",
+            textShadow: "0 1px 3px rgba(0, 0, 0, 0.3)",
+          }}
+        >
+          Write and share insightful thoughts on ጃንpost, your go-to platform for
+          meaningful conversations.
+        </Typography>
+
+        <Button
+          variant="contained"
+          sx={{
+            px: 3,
+            py: 1.5,
+            background: "linear-gradient(135deg, #bcaaaa, #000000)",
+            color: "white",
+            fontWeight: "bold",
+            borderRadius: 8,
+          }}
+        >
+          Want to Join?
+        </Button>
+      </Box>
     </>
   );
 };
