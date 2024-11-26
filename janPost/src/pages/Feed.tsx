@@ -14,9 +14,9 @@ const Feed = () => {
   const posts = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
   return (
-    <Grid2 container spacing={1} sx={{ height: "100vh" }}>
+    <Grid2 container spacing={1} sx={{ height: "90vh" }}>
       {/* Sidebar */}
-      <Grid2 size={2} sx={{ overflowY: "auto", height: "100vh" }}>
+      <Grid2 size={2} sx={{ overflowY: "hidden", height: "90vh" }}>
         <SideBar />
       </Grid2>
 
