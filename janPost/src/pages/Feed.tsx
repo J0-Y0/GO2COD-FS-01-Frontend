@@ -9,6 +9,7 @@ import {
 import SideBar from "../components/SideBar";
 import PostLargeCard from "../components/PostLargeCard";
 import PostCard from "../components/PostCard";
+import BottomBar from "../components/BottomBar";
 
 const Feed = () => {
   const posts = [1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -141,6 +142,9 @@ const Feed = () => {
           ))}
         </Stack>
       </Grid2>
+      <Box sx={{ display: { xs: "block", sm: "none" } }}>
+        <BottomBar></BottomBar>
+      </Box>
     </Grid2>
   );
 };
