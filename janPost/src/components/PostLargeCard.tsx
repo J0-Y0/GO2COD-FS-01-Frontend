@@ -58,7 +58,7 @@ export default function PostLargeCard({ index }: Props) {
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            R
+            <b>ጃ</b>
           </Avatar>
         }
         action={

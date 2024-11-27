@@ -16,13 +16,20 @@ const Feed = () => {
   return (
     <Grid2 container spacing={1} sx={{ height: "90vh" }}>
       {/* Sidebar */}
-      <Grid2 size={2} sx={{ overflowY: "hidden", height: "90vh" }}>
+      <Grid2
+        size={{ sm: 4, md: 3, lg: 2 }}
+        sx={{
+          display: { xs: "none", sm: "block" },
+          overflowY: "hidden",
+          height: "90vh",
+        }}
+      >
         <SideBar />
       </Grid2>
 
       {/* Main Feed */}
       <Grid2
-        size={6}
+        size={{ xs: 12, sm: 8, md: 9, lg: 6 }}
         sx={{
           overflowY: "auto",
           height: "100%",
@@ -77,28 +84,17 @@ const Feed = () => {
           </Box>
         </Stack>
       </Grid2>
+
       {/* Last Visited */}
-      {/* <Grid2 size={4} sx={{ overflowY: "auto", height: "100%", paddingX: 2 }}>
-        <Box
-          sx={{
-            position: "sticky",
-            top: 0,
-            // background: "rgb(239 239 239)",
-            zIndex: 2,
-            paddingTop: 2,
-          }}
-        >
-          <Typography variant="h6">Last Visited</Typography>
-          <Divider sx={{ my: 2 }} />
-        </Box>
-        <Stack spacing={2}>
-          {posts.slice(0, 5).map((post) => (
-            <PostCard index={post} />
-          ))}
-        </Stack>
-      </Grid2> */}
-      {/* Last Visited */}
-      <Grid2 size={4} sx={{ overflowY: "auto", height: "100%", paddingX: 2 }}>
+      <Grid2
+        size={4}
+        sx={{
+          display: { xs: "none", lg: "block" },
+          overflowY: "auto",
+          height: "100%",
+          paddingX: 2,
+        }}
+      >
         <Box
           sx={{
             position: "sticky",

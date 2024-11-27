@@ -10,10 +10,10 @@ function App() {
     <>
       <NavBar />
 
-      <Container maxWidth="xl">
+      {/* <Container maxWidth="xl">
         <Landing />
       </Container>
-      <Footer />
+      <Footer /> */}
       <Feed />
     </>
   );
