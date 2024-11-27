@@ -1,12 +1,8 @@
 import { Box, Button, TextField } from "@mui/material";
-// import CenteredCard from "../utils/CenteredCard";
-// import { LoadingButton } from "../utils/Loading";
+
 import { Lock } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-// import { useLogin } from "../context/auth/hooks/useLogin";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
-import { useAuth } from "../context/auth/authProvider";
 import CenteredCard from "../utils/CenteredCard";
 interface FormData {
   email: string;
@@ -14,11 +10,6 @@ interface FormData {
 }
 
 const SignIn = () => {
-  // const navigate = useNavigate();
-  // const login = useLogin();
-  // const { token } = useAuth;
-  // token && navigate("/");
-
   const { register, handleSubmit } = useForm<FormData>();
 
   return (
@@ -33,7 +24,7 @@ const SignIn = () => {
           label="Email"
           type="email"
           {...register("email")}
-          variant="standard"
+          variant="outlined"
           fullWidth
           sx={{ my: 2 }}
         />
@@ -42,7 +33,7 @@ const SignIn = () => {
           label="Password"
           type="password"
           {...register("password")}
-          variant="standard"
+          variant="outlined"
           fullWidth
           sx={{ mb: 2 }}
         />
@@ -60,7 +51,7 @@ const SignIn = () => {
         <Button variant="text" component={Link} to="/signup">
           Create account?
         </Button>
-        <Button variant="text" component={Link} to="/PasswordReset">
+        <Button variant="text" component={Link} to="/Password-reset">
           Forgot Password?
         </Button>
       </Box>

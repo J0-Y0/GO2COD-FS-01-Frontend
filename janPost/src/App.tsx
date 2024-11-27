@@ -7,6 +7,8 @@ import Feed from "./pages/Feed";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Signin from "./pages/Signin";
 import SignUp from "./pages/SignUp";
+import PasswordReset from "./pages/PasswordReset";
+import PasswordResetConfirm from "./pages/PasswordResetConfirm";
 
 function App() {
   return (
@@ -17,6 +19,11 @@ function App() {
         <Route path="/feeds" element={<Feed />} />
         <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/password-reset" element={<PasswordReset />} />
+        <Route
+          path="/password-reset-confirm"
+          element={<PasswordResetConfirm />}
+        />
       </Routes>
     </BrowserRouter>
   );

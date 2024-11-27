@@ -12,7 +12,7 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
-
+import { Link } from "react-router-dom";
 const pages = ["Products", "Pricing", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
@@ -53,7 +53,7 @@ function ResponsiveAppBar() {
             variant="h6"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
+            href="/"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -133,7 +133,12 @@ function ResponsiveAppBar() {
             ))}
           </Box>
 
-          <Button sx={{ marginX: 1 }} variant="outlined">
+          <Button
+            sx={{ marginX: 1 }}
+            component={Link}
+            to="/signin"
+            variant="outlined"
+          >
             Join us{" "}
           </Button>
           <Box sx={{ flexGrow: 0 }}>

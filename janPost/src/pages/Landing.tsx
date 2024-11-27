@@ -10,6 +10,8 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import { Link } from "react-router-dom";
+
 import PostCard from "../components/PostCard";
 import Footer from "../components/Footer";
 
@@ -58,6 +60,8 @@ const Landing = () => {
               </Typography>
               <Button
                 variant="contained"
+                component={Link}
+                to="/feeds"
                 sx={{
                   color: "var(--text-100)",
                   paddingX: 3,
@@ -145,7 +149,6 @@ const Landing = () => {
             matters.
           </Typography>
           <Button
-            variant="contained"
             sx={{
               px: 4,
               py: 1.5,
@@ -153,6 +156,9 @@ const Landing = () => {
               fontWeight: "bold",
               borderRadius: 8,
             }}
+            component={Link}
+            variant="contained"
+            to="/signin "
           >
             Get Started
           </Button>
