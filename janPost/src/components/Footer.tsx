@@ -15,7 +15,7 @@ const Footer = () => {
           paddingX: 2,
           paddingTop: 2,
           paddingBottom: 4,
-          bgcolor: "#e2e2e2",
+          // bgcolor: "#e2e2e2",
         }}
       >
         <Typography variant="h5">

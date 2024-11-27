@@ -31,17 +31,38 @@ const Landing = () => {
             sx={{ paddingX: { xs: 1, md: 3 }, paddingY: 3 }}
             alignContent="center"
           >
-            <Typography variant="h5">
-              This is the most featured Titleost featured Title ost featured
-              Title
+            <Typography
+              variant="h4"
+              fontWeight="bold"
+              sx={{
+                color: "var(--primary-300)",
+                textShadow: "0 2px 4px rgba(0,0,0,0.4)",
+              }}
+            >
+              Discover Engaging Stories
             </Typography>
-            <Typography variant="body1" paddingY={2}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum
-              facilis placeat excepturi aut, sint esse voluptas consequatur
-              possimus hic voluptatum quae commodi assumenda sunt. Dolores quo
-              aut voluptates delectus fuga! Lorem ipsum dolor sit amet
+            <Typography
+              variant="body1"
+              sx={{
+                marginY: 2,
+                lineHeight: 1.8,
+                color: "var(--text-200)",
+              }}
+            >
+              Dive into a curated selection of articles, insights, and opinions
+              from experts across various fields. Your next favorite read is
+              just a click away!
             </Typography>
-            <Button variant="contained">Read Now</Button>
+            <Button
+              variant="contained"
+              sx={{
+                color: "var(--text-100)",
+                paddingX: 3,
+                paddingY: 1.5,
+              }}
+            >
+              Start Reading
+            </Button>
           </Grid2>{" "}
           <Grid2
             size={{ sm: 12, md: 6 }}
@@ -58,7 +79,7 @@ const Landing = () => {
         sx={{
           position: "sticky",
           top: 62,
-          bgcolor: "rgb(239 239 239)",
+          bgcolor: "#1d2e3d",
           paddingY: 1,
           zIndex: 2,
         }}
@@ -88,14 +109,12 @@ const Landing = () => {
       </Stack>
       <Box
         sx={{
-          background: "linear-gradient(135deg, #bcaaaa, #000000)",
-          color: "white",
-          p: 4,
+          background: "linear-gradient(304deg, #0d1f2d, #293947)",
+          p: 8,
           marginY: 10,
           borderRadius: 3,
           textAlign: "center",
           boxShadow: 3,
-          // maxWidth: 500,
           mx: "auto",
           mt: 4,
         }}
@@ -104,35 +123,35 @@ const Landing = () => {
           variant="h4"
           fontWeight="bold"
           gutterBottom
-          sx={{ textShadow: "0 2px 5px rgba(0, 0, 0, 0.3)" }}
+          color="primary"
+          sx={{ textShadow: "0 2px 5px rgba(0, 0, 0, 0.4)" }}
         >
-          Share Your Thoughts
+          Join Our Community
         </Typography>
-
         <Typography
           variant="body1"
           sx={{
             mb: 3,
-            fontSize: "1.1rem",
-            textShadow: "0 1px 3px rgba(0, 0, 0, 0.3)",
+            fontSize: "1.2rem",
+            lineHeight: 1.8,
+            color: "var(--text-200)",
           }}
         >
-          Write and share insightful thoughts on ጃንpost, your go-to platform for
-          meaningful conversations.
+          Connect with like-minded individuals and share your stories, ideas,
+          and experiences. Be a part of ጃንpost, a platform where your voice
+          matters.
         </Typography>
-
         <Button
           variant="contained"
           sx={{
-            px: 3,
+            px: 4,
             py: 1.5,
-            background: "linear-gradient(135deg, #bcaaaa, #000000)",
-            color: "white",
+            color: "var(--text-100)",
             fontWeight: "bold",
             borderRadius: 8,
           }}
         >
-          Want to Join?
+          Get Started
         </Button>
       </Box>
     </>

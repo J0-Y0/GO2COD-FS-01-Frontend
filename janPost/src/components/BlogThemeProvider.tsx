@@ -14,7 +14,8 @@ const BlogTheme = createTheme({
     },
     background: {
       default: "#0D1F2D", // bg-100
-      paper: "#1d2e3d", // bg-200
+      paper: "#0D1F2D", // bg-200
+      // paper: "#1d2e3d", // bg-200
     },
     text: {
       primary: "#FFFFFF", // text-100

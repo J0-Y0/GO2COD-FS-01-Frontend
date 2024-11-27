@@ -15,6 +15,7 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
 import AutoStoriesIcon from "@mui/icons-material/AutoStories";
 import PublishedWithChangesIcon from "@mui/icons-material/PublishedWithChanges";
 import SaveAsIcon from "@mui/icons-material/SaveAs";
+import DrawIcon from "@mui/icons-material/Draw";
 
 const SideBar = () => {
   const [open, setOpen] = React.useState(true);
@@ -88,6 +89,12 @@ const SideBar = () => {
                 <SaveAsIcon sx={{ color: "#afffff" }} />
               </ListItemIcon>
               <ListItemText primary="Drafts" />
+            </ListItemButton>
+            <ListItemButton sx={{ pl: 4 }}>
+              <ListItemIcon>
+                <DrawIcon sx={{ color: "#afffff" }} />
+              </ListItemIcon>
+              <ListItemText primary="Write" />
             </ListItemButton>
           </List>
         </Collapse>
