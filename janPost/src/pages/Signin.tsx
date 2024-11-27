@@ -46,7 +46,7 @@ const SignIn = () => {
           fullWidth
           sx={{ mb: 2 }}
         />
-        <Button variant="outlined" type="submit" fullWidth sx={{ my: 2 }}>
+        <Button variant="contained" type="submit" fullWidth sx={{ my: 2 }}>
           Sign in
         </Button>
       </form>

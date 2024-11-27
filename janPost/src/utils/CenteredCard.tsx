@@ -24,11 +24,9 @@ const CenteredCard = ({
         display: "flex",
         border: "1px #0f3c32 solid",
         justifyContent: "center",
+        alignItems: "center",
         flexDirection: "column",
         textAlign: "center",
-        borderRadius: "19px",
-        // background: "#0d1f2d",
-        // boxShadow: "-35px -35px 70px #0b1a26,35px 35px 70px #0f2434",
       }}
     >
       <Avatar
