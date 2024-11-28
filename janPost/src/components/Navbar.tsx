@@ -13,6 +13,8 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import { Link } from "react-router-dom";
+import { BlogThemeContext } from "./BlogThemeProvider";
+import { DarkMode, LightMode } from "@mui/icons-material";
 const pages = ["Products", "Pricing", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
@@ -39,6 +41,8 @@ function ResponsiveAppBar() {
     setAnchorElUser(null);
   };
 
+  const themeObject = React.useContext(BlogThemeContext);
+  // themeObject?.setTheme("dark");
   return (
     <AppBar
       position="sticky"
@@ -172,6 +176,16 @@ function ResponsiveAppBar() {
               ))}
             </Menu>
           </Box>
+          <IconButton
+            color="primary"
+            onClick={() =>
+              themeObject?.theme == "light"
+                ? themeObject?.setTheme("dark")
+                : themeObject?.setTheme("light")
+            }
+          >
+            {themeObject?.theme == "light" ? <LightMode /> : <DarkMode />}
+          </IconButton>
         </Toolbar>
       </Container>
     </AppBar>
