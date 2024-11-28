@@ -9,23 +9,26 @@ import Signin from "./pages/Signin";
 import SignUp from "./pages/SignUp";
 import PasswordReset from "./pages/PasswordReset";
 import PasswordResetConfirm from "./pages/PasswordResetConfirm";
+import AuthContextProvider from "./context/AuthContextProvider";
 
 function App() {
   return (
-    <BrowserRouter>
-      <NavBar />
-      <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route path="/feeds" element={<Feed />} />
-        <Route path="/signin" element={<Signin />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/password-reset" element={<PasswordReset />} />
-        <Route
-          path="/password-reset-confirm"
-          element={<PasswordResetConfirm />}
-        />
-      </Routes>
-    </BrowserRouter>
+    <AuthContextProvider>
+      <BrowserRouter>
+        <NavBar />
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="/feeds" element={<Feed />} />
+          <Route path="/signin" element={<Signin />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/password-reset" element={<PasswordReset />} />
+          <Route
+            path="/password-reset-confirm"
+            element={<PasswordResetConfirm />}
+          />
+        </Routes>
+      </BrowserRouter>
+    </AuthContextProvider>
   );
 }
 
