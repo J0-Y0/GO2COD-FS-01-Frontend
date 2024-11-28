@@ -10,6 +10,7 @@ import SignUp from "./pages/SignUp";
 import PasswordReset from "./pages/PasswordReset";
 import PasswordResetConfirm from "./pages/PasswordResetConfirm";
 import AuthContextProvider from "./context/AuthContextProvider";
+import CreatePost from "./pages/CreatePost";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
             path="/password-reset-confirm"
             element={<PasswordResetConfirm />}
           />
+          <Route path="/create-post" element={<CreatePost />} />
         </Routes>
       </BrowserRouter>
     </AuthContextProvider>
