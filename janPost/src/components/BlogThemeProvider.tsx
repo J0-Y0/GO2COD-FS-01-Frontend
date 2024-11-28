@@ -1,4 +1,4 @@
-import { createTheme, ThemeProvider, CssBaseline, Theme } from "@mui/material";
+import { createTheme, ThemeProvider, CssBaseline } from "@mui/material";
 
 const DarkBlogTheme = createTheme({
   palette: {
