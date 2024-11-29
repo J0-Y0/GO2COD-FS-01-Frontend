@@ -11,34 +11,29 @@ import PostLargeCard from "../components/PostLargeCard";
 import PostCard from "../components/PostCard";
 import BottomBar from "../components/BottomBar";
 import { useEffect, useState } from "react";
-import axios from "axios";
-interface User {
-  id: number;
-  first_name: string;
-  last_name: string;
-}
-interface PostData {
-  id: number;
-  title: string;
-  image: string;
-  published_date: Date;
-
-  excerpt: string;
-  content: string;
-  status: "draft" | "published";
-  category: "aaa" | "bbbb" | "cccc" | "dddd";
-  author: User;
-}
+import PostService, { PostData, CanceledError } from "../service/post_service";
 
 const Feed = () => {
   const [posts, setPosts] = useState<PostData[] | null>(null);
-  // const posts = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  const [error, setError] = useState();
+
   useEffect(() => {
-    axios.get<PostData[]>("http://127.0.0.1:8000/api/posts/").then((res) => {
-      console.log("res.data");
-      setPosts(res.data);
-    });
+    const { request, cancel } = PostService.getAllPosts();
+    request
+      .then((res) => {
+        console.log("res.data");
+        setPosts(res.data);
+      })
+      .catch((err) => {
+        if (err instanceof CanceledError) {
+          return;
+        }
+        setError(err);
+      });
+
+    return () => cancel();
   }, []);
+
   return (
     <Grid2 container spacing={1} sx={{ height: "90vh" }}>
       {/* Sidebar */}
