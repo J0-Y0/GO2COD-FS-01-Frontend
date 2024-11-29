@@ -10,10 +10,35 @@ import SideBar from "../components/SideBar";
 import PostLargeCard from "../components/PostLargeCard";
 import PostCard from "../components/PostCard";
 import BottomBar from "../components/BottomBar";
+import { useEffect, useState } from "react";
+import axios from "axios";
+interface User {
+  id: number;
+  first_name: string;
+  last_name: string;
+}
+interface PostData {
+  id: number;
+  title: string;
+  image: string;
+  published_date: Date;
+
+  excerpt: string;
+  content: string;
+  status: "draft" | "published";
+  category: "aaa" | "bbbb" | "cccc" | "dddd";
+  author: User;
+}
 
 const Feed = () => {
-  const posts = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-
+  const [posts, setPosts] = useState<PostData[] | null>(null);
+  // const posts = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  useEffect(() => {
+    axios.get<PostData[]>("http://127.0.0.1:8000/api/posts/").then((res) => {
+      console.log("res.data");
+      setPosts(res.data);
+    });
+  }, []);
   return (
     <Grid2 container spacing={1} sx={{ height: "90vh" }}>
       {/* Sidebar */}
@@ -41,9 +66,7 @@ const Feed = () => {
         }}
       >
         <Stack spacing={3}>
-          {posts.map((post) => (
-            <PostLargeCard index={post} key={post} />
-          ))}
+          {posts?.map((post) => <PostLargeCard post={post} key={post.id} />)}
 
           {/* Loading Section */}
           <Box
@@ -123,9 +146,9 @@ const Feed = () => {
         </Box>
 
         <Stack spacing={2}>
-          {posts.slice(0, 5).map((post) => (
+          {posts?.slice(0, 5).map((post) => (
             <Box
-              key={post}
+              key={post.id}
               sx={{
                 p: 2,
 
