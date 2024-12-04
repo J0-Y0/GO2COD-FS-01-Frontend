@@ -5,20 +5,16 @@ import {
   Grid2,
   Stack,
   Typography,
-  containerClasses,
 } from "@mui/material";
 import SideBar from "../components/SideBar";
-import PostLargeCard, {
-  PostLargeCardSkeleton,
-} from "../components/PostLargeCard";
-import PostCard, { PostCardSkeleton } from "../components/PostCard";
+import PostLargeCard from "../components/PostLargeCard";
+import PostCard from "../components/PostCard";
 import BottomBar from "../components/BottomBar";
 import { useEffect, useState } from "react";
-import PostService, { PostData, CanceledError } from "../service/post_service";
 import usePost from "../hooks/usePost";
 
-const Feed = () => {
-  const { posts, loading } = usePost();
+const MnagePosts = () => {
+  const { posts } = usePost();
   return (
     <Grid2 container spacing={1} sx={{ height: "90vh" }}>
       {/* Sidebar */}
@@ -46,16 +42,7 @@ const Feed = () => {
         }}
       >
         <Stack spacing={3}>
-          {!posts ? (
-            <>
-              <PostLargeCardSkeleton />
-              <PostLargeCardSkeleton />
-              <PostLargeCardSkeleton />
-              <PostLargeCardSkeleton />
-            </>
-          ) : (
-            posts?.map((post) => <PostLargeCard post={post} key={post.id} />)
-          )}
+          {posts?.map((post) => <PostLargeCard post={post} key={post.id} />)}
 
           {/* Loading Section */}
           <Box
@@ -135,37 +122,23 @@ const Feed = () => {
         </Box>
 
         <Stack spacing={2}>
-          {" "}
-          {!posts ? (
+          {posts?.slice(0, 5).map((post) => (
             <Box
+              key={post.id}
               sx={{
                 p: 2,
+
+                transition:
+                  "transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out",
+                "&:hover": {
+                  transform: "scale(1.02)",
+                  boxShadow: "0px 6px 15px rgba(0, 0, 0, 0.15)",
+                },
               }}
             >
-              {" "}
-              <PostCardSkeleton />
-              <PostCardSkeleton />
-              <PostCardSkeleton />
+              <PostCard index={post} />
             </Box>
-          ) : (
-            posts?.slice(0, 5).map((post) => (
-              <Box
-                key={post.id}
-                sx={{
-                  p: 2,
-
-                  transition:
-                    "transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out",
-                  "&:hover": {
-                    transform: "scale(1.02)",
-                    boxShadow: "0px 6px 15px rgba(0, 0, 0, 0.15)",
-                  },
-                }}
-              >
-                <PostCard post={post} />
-              </Box>
-            ))
-          )}
+          ))}
         </Stack>
       </Grid2>
       <Box sx={{ display: { xs: "block", sm: "none" } }}>
@@ -175,4 +148,4 @@ const Feed = () => {
   );
 };
 
-export default Feed;
+export default MnagePosts;

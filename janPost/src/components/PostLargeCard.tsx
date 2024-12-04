@@ -14,6 +14,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { Box, Skeleton, Stack } from "@mui/material";
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
@@ -119,6 +120,34 @@ export default function PostLargeCard({ post }: Props) {
           <Typography sx={{ marginBottom: 2 }}>{post.content}</Typography>
         </CardContent>
       </Collapse>
+    </Card>
+  );
+}
+export function PostLargeCardSkeleton() {
+  return (
+    <Card>
+      <CardHeader
+        avatar={<Skeleton variant="circular" width={40} height={40} />}
+        title={<Skeleton variant="text" width={150} />}
+        subheader={<Skeleton variant="text" width={100} />}
+      />
+      <CardMedia>
+        <Skeleton variant="rectangular" height={194} />
+      </CardMedia>
+      <CardContent>
+        <Skeleton variant="text" />
+        <Skeleton variant="text" />
+        <Skeleton variant="text" />
+        <Skeleton variant="text" width={200} />
+      </CardContent>
+      <CardActions sx={{ direction: "row", justifyContent: "space-between" }}>
+        <Stack direction={"row"}>
+          <Skeleton sx={{ mx: 1 }} variant="circular" width={30} height={30} />
+          <Skeleton sx={{ mx: 1 }} variant="circular" width={30} height={30} />
+          <Skeleton sx={{ mx: 1 }} variant="circular" width={30} height={30} />
+        </Stack>
+        <Skeleton sx={{ p: 1 }} variant="circular" width={30} height={30} />
+      </CardActions>
     </Card>
   );
 }

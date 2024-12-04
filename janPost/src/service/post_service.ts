@@ -26,5 +26,13 @@ class PostService{
             })
         return {request,cancel:()=>controller.abort()}
     }
+    getAllMyPosts() {
+        const controller = new AbortController();
+        const request =   api_client
+            .get<PostData[]>("posts/?status=all", {
+            signal: controller.signal,
+            })
+        return {request,cancel:()=>controller.abort()}
+    }
 }
 export default new PostService()

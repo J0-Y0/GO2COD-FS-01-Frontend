@@ -66,7 +66,11 @@ const SideBar = () => {
           </ListItemIcon>
           <ListItemText primary="Bookmarked Posts" />
         </ListItemButton>
-        <ListItemButton onClick={() => setOpen(!open)}>
+        <ListItemButton
+          component={Link}
+          to="/published"
+          onClick={() => setOpen(!open)}
+        >
           <ListItemIcon>
             <CreateIcon sx={{ color: "#afffff" }} /> {/* primary-300 */}
           </ListItemIcon>
@@ -75,7 +79,7 @@ const SideBar = () => {
         </ListItemButton>
         <Collapse in={open} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
-            <ListItemButton sx={{ pl: 4 }}>
+            <ListItemButton component={Link} to="/published" sx={{ pl: 4 }}>
               <ListItemIcon>
                 <PublishedWithChangesIcon sx={{ color: "#afffff" }} />
               </ListItemIcon>

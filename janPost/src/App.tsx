@@ -11,6 +11,7 @@ import PasswordReset from "./pages/PasswordReset";
 import PasswordResetConfirm from "./pages/PasswordResetConfirm";
 import AuthContextProvider from "./context/AuthContextProvider";
 import CreatePost from "./pages/CreatePost";
+import ManagePosts from "./pages/ManagePosts";
 
 function App() {
   return (
@@ -20,6 +21,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/feeds" element={<Feed />} />
+          <Route path="/published" element={<ManagePosts />} />
+
           <Route path="/signin" element={<Signin />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/password-reset" element={<PasswordReset />} />

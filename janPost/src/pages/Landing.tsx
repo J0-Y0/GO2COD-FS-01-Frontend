@@ -14,9 +14,10 @@ import { Link } from "react-router-dom";
 
 import PostCard from "../components/PostCard";
 import Footer from "../components/Footer";
+import usePost from "../hooks/usePost";
 
 const Landing = () => {
-  const top5 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+  const { posts } = usePost();
   return (
     <>
       <Container maxWidth="xl">
@@ -110,9 +111,7 @@ const Landing = () => {
           sx={{ flexWrap: "wrap" }}
           justifyContent="space-evenly"
         >
-          {top5.map((post: number) => (
-            <PostCard index={post} />
-          ))}
+          {posts?.slice(0, 6).map((post) => <PostCard post={post} />)}
         </Stack>
         <Box
           sx={{
