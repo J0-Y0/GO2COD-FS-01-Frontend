@@ -16,13 +16,10 @@ import AutoStoriesIcon from "@mui/icons-material/AutoStories";
 import PublishedWithChangesIcon from "@mui/icons-material/PublishedWithChanges";
 import SaveAsIcon from "@mui/icons-material/SaveAs";
 import DrawIcon from "@mui/icons-material/Draw";
+import { Link } from "react-router-dom";
 
 const SideBar = () => {
   const [open, setOpen] = React.useState(true);
-
-  const handleClick = () => {
-    setOpen(!open);
-  };
 
   return (
     <Stack direction="row">
@@ -57,7 +54,7 @@ const SideBar = () => {
         }}
         component="nav"
       >
-        <ListItemButton>
+        <ListItemButton component={Link} to="/feeds">
           <ListItemIcon>
             <AutoStoriesIcon sx={{ color: "#afffff" }} /> {/* primary-300 */}
           </ListItemIcon>
@@ -69,7 +66,11 @@ const SideBar = () => {
           </ListItemIcon>
           <ListItemText primary="Bookmarked Posts" />
         </ListItemButton>
-        <ListItemButton onClick={handleClick}>
+        <ListItemButton
+          component={Link}
+          to="/published"
+          onClick={() => setOpen(!open)}
+        >
           <ListItemIcon>
             <CreateIcon sx={{ color: "#afffff" }} /> {/* primary-300 */}
           </ListItemIcon>
@@ -78,7 +79,7 @@ const SideBar = () => {
         </ListItemButton>
         <Collapse in={open} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
-            <ListItemButton sx={{ pl: 4 }}>
+            <ListItemButton component={Link} to="/published" sx={{ pl: 4 }}>
               <ListItemIcon>
                 <PublishedWithChangesIcon sx={{ color: "#afffff" }} />
               </ListItemIcon>
@@ -90,7 +91,7 @@ const SideBar = () => {
               </ListItemIcon>
               <ListItemText primary="Drafts" />
             </ListItemButton>
-            <ListItemButton sx={{ pl: 4 }}>
+            <ListItemButton sx={{ pl: 4 }} component={Link} to="/create-post">
               <ListItemIcon>
                 <DrawIcon sx={{ color: "#afffff" }} />
               </ListItemIcon>

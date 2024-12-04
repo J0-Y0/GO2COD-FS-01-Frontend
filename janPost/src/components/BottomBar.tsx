@@ -14,7 +14,8 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 import AutoStoriesIcon from "@mui/icons-material/AutoStories";
 import SaveAsIcon from "@mui/icons-material/SaveAs";
 import GradingIcon from "@mui/icons-material/Grading";
-import { Button, Fab, Link, styled } from "@mui/material";
+import { Button, Fab, styled } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const StyledFab = styled(Fab)({
   position: "absolute",
@@ -32,6 +33,8 @@ const BottomBar = () => {
           sx={{ display: "flex", flexDirection: "column" }}
           size="small"
           variant="text"
+          component={Link}
+          to="/feeds"
         >
           <AutoStoriesIcon />
           Feeds
@@ -44,7 +47,12 @@ const BottomBar = () => {
           <BookmarkIcon />
           Saved
         </Button>
-        <StyledFab color="primary" aria-label="add">
+        <StyledFab
+          component={Link}
+          to="/create-post"
+          color="primary"
+          aria-label="add"
+        >
           <AddIcon />
         </StyledFab>
         <Box sx={{ flexGrow: 1 }} />

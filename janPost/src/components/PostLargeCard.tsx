@@ -14,6 +14,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { Box, Skeleton, Stack } from "@mui/material";
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
@@ -42,11 +43,25 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
     },
   ],
 }));
-interface Props {
-  index: number;
+
+interface User {
+  id: number;
+  first_name: string;
+  last_name: string;
+}
+interface PostData {
+  id: number;
+  title: string;
+  image: string;
+  excerpt: string;
+  content: string;
+  published_date: Date;
+  status: "draft" | "published";
+  category: "aaa" | "bbbb" | "cccc" | "dddd";
+  author: User;
 }
 
-export default function PostLargeCard({ index }: Props) {
+export default function PostLargeCard({ post }: Props) {
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
@@ -66,23 +81,18 @@ export default function PostLargeCard({ index }: Props) {
             <MoreVertIcon />
           </IconButton>
         }
-        title="Shrimp and Chorizo Paella"
-        subheader="September 14, 2016"
+        title={post.author.first_name + " " + post.author.last_name}
+        subheader={post.time_difference}
       />
       <CardMedia
         component="img"
         height="194"
-        image={`https://picsum.photos/id/1${index}/600/300`}
+        image={post?.image}
         alt="Paella dish"
       />
       <CardContent>
         <Typography variant="body2" sx={{ color: "text.secondary" }}>
-          This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the
-          mussels, if you like. Lorem ipsum dolor sit amet consectetur
-          adipisicing elit. Eum fugit nulla, illum quis veniam temporibus ut
-          accusamus molestias aut, dignissimos magnam facilis, voluptates animi?
-          Aut cumque ducimus necessitatibus impedit fuga!
+          {post.excerpt}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
@@ -103,35 +113,41 @@ export default function PostLargeCard({ index }: Props) {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography sx={{ marginBottom: 2 }}>Method:</Typography>
-          <Typography sx={{ marginBottom: 2 }}>
-            Heat 1/2 cup of the broth in a pot until simmering, add saffron and
-            set aside for 10 minutes.
+          <Typography variant="h6" sx={{ marginBottom: 2 }}>
+            {post.title}
           </Typography>
-          <Typography sx={{ marginBottom: 2 }}>
-            Heat oil in a (14- to 16-inch) paella pan or a large, deep skillet
-            over medium-high heat. Add chicken, shrimp and chorizo, and cook,
-            stirring occasionally until lightly browned, 6 to 8 minutes.
-            Transfer shrimp to a large plate and set aside, leaving chicken and
-            chorizo in the pan. Add pimentón, bay leaves, garlic, tomatoes,
-            onion, salt and pepper, and cook, stirring often until thickened and
-            fragrant, about 10 minutes. Add saffron broth and remaining 4 1/2
-            cups chicken broth; bring to a boil.
-          </Typography>
-          <Typography sx={{ marginBottom: 2 }}>
-            Add rice and stir very gently to distribute. Top with artichokes and
-            peppers, and cook without stirring, until most of the liquid is
-            absorbed, 15 to 18 minutes. Reduce heat to medium-low, add reserved
-            shrimp and mussels, tucking them down into the rice, and cook again
-            without stirring, until mussels have opened and rice is just tender,
-            5 to 7 minutes more. (Discard any mussels that don&apos;t open.)
-          </Typography>
-          <Typography>
-            Set aside off of the heat to let rest for 10 minutes, and then
-            serve.
-          </Typography>
+          <Typography sx={{ marginBottom: 2 }}>{post.excerpt}</Typography>
+          <Typography sx={{ marginBottom: 2 }}>{post.content}</Typography>
         </CardContent>
       </Collapse>
+    </Card>
+  );
+}
+export function PostLargeCardSkeleton() {
+  return (
+    <Card>
+      <CardHeader
+        avatar={<Skeleton variant="circular" width={40} height={40} />}
+        title={<Skeleton variant="text" width={150} />}
+        subheader={<Skeleton variant="text" width={100} />}
+      />
+      <CardMedia>
+        <Skeleton variant="rectangular" height={194} />
+      </CardMedia>
+      <CardContent>
+        <Skeleton variant="text" />
+        <Skeleton variant="text" />
+        <Skeleton variant="text" />
+        <Skeleton variant="text" width={200} />
+      </CardContent>
+      <CardActions sx={{ direction: "row", justifyContent: "space-between" }}>
+        <Stack direction={"row"}>
+          <Skeleton sx={{ mx: 1 }} variant="circular" width={30} height={30} />
+          <Skeleton sx={{ mx: 1 }} variant="circular" width={30} height={30} />
+          <Skeleton sx={{ mx: 1 }} variant="circular" width={30} height={30} />
+        </Stack>
+        <Skeleton sx={{ p: 1 }} variant="circular" width={30} height={30} />
+      </CardActions>
     </Card>
   );
 }
