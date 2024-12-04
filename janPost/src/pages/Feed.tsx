@@ -5,7 +5,6 @@ import {
   Grid2,
   Stack,
   Typography,
-  containerClasses,
 } from "@mui/material";
 import SideBar from "../components/SideBar";
 import PostLargeCard, {
@@ -13,12 +12,11 @@ import PostLargeCard, {
 } from "../components/PostLargeCard";
 import PostCard, { PostCardSkeleton } from "../components/PostCard";
 import BottomBar from "../components/BottomBar";
-import { useEffect, useState } from "react";
-import PostService, { PostData, CanceledError } from "../service/post_service";
 import usePost from "../hooks/usePost";
 
 const Feed = () => {
-  const { posts, loading } = usePost();
+  const { data, loading } = usePost();
+
   return (
     <Grid2 container spacing={1} sx={{ height: "90vh" }}>
       {/* Sidebar */}
@@ -46,7 +44,7 @@ const Feed = () => {
         }}
       >
         <Stack spacing={3}>
-          {!posts ? (
+          {loading ? (
             <>
               <PostLargeCardSkeleton />
               <PostLargeCardSkeleton />
@@ -54,7 +52,7 @@ const Feed = () => {
               <PostLargeCardSkeleton />
             </>
           ) : (
-            posts?.map((post) => <PostLargeCard post={post} key={post.id} />)
+            data?.map((post) => <PostLargeCard post={post} key={post.id} />)
           )}
 
           {/* Loading Section */}
@@ -136,7 +134,7 @@ const Feed = () => {
 
         <Stack spacing={2}>
           {" "}
-          {!posts ? (
+          {loading ? (
             <Box
               sx={{
                 p: 2,
@@ -148,7 +146,7 @@ const Feed = () => {
               <PostCardSkeleton />
             </Box>
           ) : (
-            posts?.slice(0, 5).map((post) => (
+            data?.slice(0, 5).map((post) => (
               <Box
                 key={post.id}
                 sx={{

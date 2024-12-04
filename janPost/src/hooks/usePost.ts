@@ -1,35 +1,24 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";  
 import post_service, { CanceledError, PostData } from "../service/post_service";
+import useData from "./useData";
+interface User {
+  id: number;
+  first_name: string;
+  last_name: string;
+}
 
+export interface PostData {
+id: number;
+title: string;
+image: string;
+excerpt: string;
+content: string;
+published_date: Date;
+status: "draft" | "published";
+category: "aaa" | "bbbb" | "cccc" | "dddd";
+author: User;
+}
 const usePost = () => {
-    const [posts, setPosts] = useState<PostData[] | null>(null);
-    const [error, setError] = useState();
-    const [loading, setLoading] = useState(false);
-    
-    
-
-    useEffect(() => {
-    setLoading(true)
-    const { request, cancel } = post_service.getAllPosts();
-    request
-        .then((res) => {
-                  setLoading(false)
-
-        console.log("res.data");
-        setPosts(res.data);
-
-      })
-        .catch((err) => {
-                setLoading(false)
-
-        if (err instanceof CanceledError) {
-          return;
-        }
-        setError(err);
-      });
-
-    return () => cancel();
-  }, []);
-  return {posts,loading}
+    return useData<PostData>("posts/")
 }
 export default usePost

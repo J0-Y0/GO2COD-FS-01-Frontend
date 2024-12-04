@@ -10,11 +10,10 @@ import SideBar from "../components/SideBar";
 import PostLargeCard from "../components/PostLargeCard";
 import PostCard from "../components/PostCard";
 import BottomBar from "../components/BottomBar";
-import { useEffect, useState } from "react";
 import usePost from "../hooks/usePost";
 
 const MnagePosts = () => {
-  const { posts } = usePost();
+  const { posts } = usePost("all");
   return (
     <Grid2 container spacing={1} sx={{ height: "90vh" }}>
       {/* Sidebar */}
@@ -136,7 +135,7 @@ const MnagePosts = () => {
                 },
               }}
             >
-              <PostCard index={post} />
+              <PostCard post={post} />
             </Box>
           ))}
         </Stack>

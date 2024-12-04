@@ -1,3 +1,4 @@
+import { AxiosRequestConfig } from "axios";
 import api_client,{CanceledError} from "./api_client";
 export {CanceledError}
 interface User {
@@ -18,21 +19,17 @@ category: "aaa" | "bbbb" | "cccc" | "dddd";
 author: User;
 }
 class PostService{
-    getAllPosts() {
+    getAllPosts(requestConfig?:AxiosRequestConfig) {
         const controller = new AbortController();
         const request =   api_client
-            .get<PostData[]>("posts/", {
-            signal: controller.signal,
+            .get<PostData[]>("posts/",
+                
+                {
+                    signal: controller.signal,
+                    ...requestConfig
             })
         return {request,cancel:()=>controller.abort()}
     }
-    getAllMyPosts() {
-        const controller = new AbortController();
-        const request =   api_client
-            .get<PostData[]>("posts/?status=all", {
-            signal: controller.signal,
-            })
-        return {request,cancel:()=>controller.abort()}
-    }
+    
 }
 export default new PostService()
