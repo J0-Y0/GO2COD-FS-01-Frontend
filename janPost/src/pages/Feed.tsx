@@ -6,32 +6,20 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import SideBar from "../components/SideBar";
 import PostLargeCard, {
   PostLargeCardSkeleton,
 } from "../components/PostLargeCard";
 import PostCard, { PostCardSkeleton } from "../components/PostCard";
 import BottomBar from "../components/BottomBar";
 import usePost from "../hooks/usePost";
-
-const Feed = () => {
-  const { data, loading } = usePost();
+interface Props {
+  saved?: boolean;
+}
+const Feed = ({ saved }: Props) => {
+  const { data, loading } = usePost({ saved: saved });
 
   return (
-    <Grid2 container spacing={1} sx={{ height: "90vh" }}>
-      {/* Sidebar */}
-      <Grid2
-        size={{ sm: 4, md: 3, lg: 2 }}
-        sx={{
-          display: { xs: "none", sm: "block" },
-          overflowY: "hidden",
-          height: "90vh",
-        }}
-      >
-        <SideBar />
-      </Grid2>
-
-      {/* Main Feed */}
+    <>
       <Grid2
         size={{ xs: 12, sm: 8, md: 9, lg: 6 }}
         sx={{
@@ -95,7 +83,6 @@ const Feed = () => {
           </Box>
         </Stack>
       </Grid2>
-
       {/* Last Visited */}
       <Grid2
         size={4}
@@ -169,7 +156,7 @@ const Feed = () => {
       <Box sx={{ display: { xs: "block", sm: "none" } }}>
         <BottomBar></BottomBar>
       </Box>
-    </Grid2>
+    </>
   );
 };
 

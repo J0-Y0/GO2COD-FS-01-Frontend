@@ -49,19 +49,7 @@ const CreatePost: React.FC = () => {
   };
 
   return (
-    <Grid2 container spacing={1} sx={{ height: "90vh" }}>
-      {/* Sidebar */}
-      <Grid2
-        size={{ sm: 4, md: 3, lg: 2 }}
-        sx={{
-          display: { xs: "none", sm: "block" },
-          overflowY: "hidden",
-          height: "100%",
-        }}
-      >
-        <SideBar />
-      </Grid2>
-
+    <>
       {/* Form Content */}
       <Grid2
         size={{ xs: 12, sm: 8, md: 9, lg: 10 }}
@@ -201,7 +189,7 @@ const CreatePost: React.FC = () => {
           </Button>
         </Box>
       </Grid2>
-    </Grid2>
+    </>
   );
 };
 

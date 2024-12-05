@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   List,
   ListItemButton,
@@ -17,8 +17,10 @@ import PublishedWithChangesIcon from "@mui/icons-material/PublishedWithChanges";
 import SaveAsIcon from "@mui/icons-material/SaveAs";
 import DrawIcon from "@mui/icons-material/Draw";
 import { Link } from "react-router-dom";
-
-const SideBar = () => {
+interface Props {
+  setParams: ({ status, saved }: { status?: string; saved?: boolean }) => void;
+}
+const SideBar = ({ setParams }: Props) => {
   const [open, setOpen] = React.useState(true);
 
   return (
@@ -60,16 +62,24 @@ const SideBar = () => {
           </ListItemIcon>
           <ListItemText primary="Your Feed" />
         </ListItemButton>
-        <ListItemButton>
+        <ListItemButton
+          component={Link}
+          to="/saved"
+          onClick={() => {
+            setParams({ saved: true });
+          }}
+        >
           <ListItemIcon>
             <BookmarkIcon sx={{ color: "#afffff" }} /> {/* primary-300 */}
           </ListItemIcon>
-          <ListItemText primary="Bookmarked Posts" />
+          <ListItemText primary="Saved Posts" />
         </ListItemButton>
         <ListItemButton
           component={Link}
-          to="/published"
-          onClick={() => setOpen(!open)}
+          to="/manage-post"
+          onClick={() => {
+            setOpen(!open), setParams({ status: "all" });
+          }}
         >
           <ListItemIcon>
             <CreateIcon sx={{ color: "#afffff" }} /> {/* primary-300 */}
@@ -79,13 +89,27 @@ const SideBar = () => {
         </ListItemButton>
         <Collapse in={open} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
-            <ListItemButton component={Link} to="/published" sx={{ pl: 4 }}>
+            <ListItemButton
+              component={Link}
+              to="/manage-post"
+              sx={{ pl: 4 }}
+              onClick={() => {
+                setParams({ status: "published" });
+              }}
+            >
               <ListItemIcon>
                 <PublishedWithChangesIcon sx={{ color: "#afffff" }} />
               </ListItemIcon>
               <ListItemText primary="Published Posts" />
             </ListItemButton>
-            <ListItemButton sx={{ pl: 4 }}>
+            <ListItemButton
+              component={Link}
+              to="/manage-post"
+              sx={{ pl: 4 }}
+              onClick={() => {
+                setParams({ status: "draft" });
+              }}
+            >
               <ListItemIcon>
                 <SaveAsIcon sx={{ color: "#afffff" }} />
               </ListItemIcon>

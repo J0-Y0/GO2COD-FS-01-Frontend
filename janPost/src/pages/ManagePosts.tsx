@@ -1,34 +1,17 @@
-import {
-  Box,
-  CircularProgress,
-  Divider,
-  Grid2,
-  Stack,
-  Typography,
-} from "@mui/material";
-import SideBar from "../components/SideBar";
+import { Box, Divider, Grid2, Stack, Typography } from "@mui/material";
 import PostLargeCard from "../components/PostLargeCard";
 import PostCard from "../components/PostCard";
 import BottomBar from "../components/BottomBar";
 import usePost from "../hooks/usePost";
+interface Props {
+  status?: string;
+  // setStatus: (status: string) => void;
+}
 
-const MnagePosts = () => {
-  const { posts } = usePost("all");
+const ManagePosts = ({ status }: Props) => {
+  const { data: posts } = usePost({ status: status });
   return (
-    <Grid2 container spacing={1} sx={{ height: "90vh" }}>
-      {/* Sidebar */}
-      <Grid2
-        size={{ sm: 4, md: 3, lg: 2 }}
-        sx={{
-          display: { xs: "none", sm: "block" },
-          overflowY: "hidden",
-          height: "90vh",
-        }}
-      >
-        <SideBar />
-      </Grid2>
-
-      {/* Main Feed */}
+    <>
       <Grid2
         size={{ xs: 12, sm: 8, md: 9, lg: 6 }}
         sx={{
@@ -40,47 +23,57 @@ const MnagePosts = () => {
           boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.1)",
         }}
       >
+        <Box my={3} sx={{ textAlign: "center" }}>
+          <Typography variant="h5"> Manage Your Blog </Typography>
+          <Typography variant="body1" color="body2">
+            {status === "published"
+              ? "Explore all your published posts here."
+              : "These are your drafts. Publish them to engage with the community and gather feedback!"}
+          </Typography>
+          <Divider orientation="horizontal" flexItem />
+        </Box>
+
         <Stack spacing={3}>
           {posts?.map((post) => <PostLargeCard post={post} key={post.id} />)}
 
           {/* Loading Section */}
-          <Box
+          {/* <Box
             display="flex"
             flexDirection="column"
             alignItems="center"
             gap={1}
-          >
-            <CircularProgress
-              size={40}
-              thickness={5}
-              sx={{
-                color: "primary.light",
-                animation: "spin 1s linear infinite",
-              }}
-            />
-            <Typography
-              textAlign="center"
-              variant="h6"
-              sx={{
-                fontWeight: 500,
-                color: "text.secondary",
-                letterSpacing: 1.2,
-              }}
             >
-              Loading . . .
-            </Typography>
-            <Typography
-              textAlign="center"
-              variant="body2"
-              sx={{
-                color: "text.secondary",
-                fontStyle: "italic",
-                letterSpacing: 1.1,
-              }}
-            >
-              Fetching the latest blogs for your preferences
-            </Typography>
-          </Box>
+              <CircularProgress
+                size={40}
+                thickness={5}
+                sx={{
+                  color: "primary.light",
+                  animation: "spin 1s linear infinite",
+                }}
+              />
+              <Typography
+                textAlign="center"
+                variant="h6"
+                sx={{
+                  fontWeight: 500,
+                  color: "text.secondary",
+                  letterSpacing: 1.2,
+                }}
+              >
+                Loading . . .
+              </Typography>
+              <Typography
+                textAlign="center"
+                variant="body2"
+                sx={{
+                  color: "text.secondary",
+                  fontStyle: "italic",
+                  letterSpacing: 1.1,
+                }}
+              >
+                Fetching the latest blogs for your preferences
+              </Typography>
+            </Box> */}
         </Stack>
       </Grid2>
 
@@ -143,8 +136,8 @@ const MnagePosts = () => {
       <Box sx={{ display: { xs: "block", sm: "none" } }}>
         <BottomBar></BottomBar>
       </Box>
-    </Grid2>
+    </>
   );
 };
 
-export default MnagePosts;
+export default ManagePosts;

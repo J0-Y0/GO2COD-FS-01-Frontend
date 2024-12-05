@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";  
-import post_service, { CanceledError, PostData } from "../service/post_service";
 import useData from "./useData";
 interface User {
   id: number;
@@ -18,7 +16,13 @@ status: "draft" | "published";
 category: "aaa" | "bbbb" | "cccc" | "dddd";
 author: User;
 }
-const usePost = () => {
-    return useData<PostData>("posts/")
+export interface Params {
+  status?: string;
+  saved?: boolean;
+}
+const usePost = (params?:Params) => {
+  // return useData<PostData>("posts/", { ...params }, [params,])
+    return useData<PostData>("posts/", { params }, [JSON.stringify(params)]);
+
 }
 export default usePost

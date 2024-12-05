@@ -9,9 +9,9 @@ import "@fontsource/roboto/700.css";
 import BlogThemeProvider from "./components/BlogThemeProvider.tsx";
 
 createRoot(document.getElementById("root")!).render(
-  // <StrictMode>
-  <BlogThemeProvider>
-    <App />
-  </BlogThemeProvider>
-  // </StrictMode>
+  <StrictMode>
+    <BlogThemeProvider>
+      <App />
+    </BlogThemeProvider>
+  </StrictMode>
 );
