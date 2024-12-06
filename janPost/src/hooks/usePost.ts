@@ -1,3 +1,4 @@
+import { Save } from "@mui/icons-material";
 import useData from "./useData";
 interface User {
   id: number;
@@ -16,13 +17,18 @@ status: "draft" | "published";
 category: "aaa" | "bbbb" | "cccc" | "dddd";
 author: User;
 }
-export interface Params {
-  status?: string;
-  saved?: boolean;
+export interface PostQuery {
+  status: string|null;
+  saved: boolean|null;
 }
-const usePost = (params?:Params) => {
-  // return useData<PostData>("posts/", { ...params }, [params,])
-    return useData<PostData>("posts/", { params }, [JSON.stringify(params)]);
+const usePost = (query:PostQuery) => {
+  return useData<PostData>("posts/", {
+    params: {
+      status: query?.status,
+      saved:query?.saved
+    }
+  },
+  [JSON.stringify(query)]);
 
 }
 export default usePost

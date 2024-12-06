@@ -17,12 +17,12 @@ import PublishedWithChangesIcon from "@mui/icons-material/PublishedWithChanges";
 import SaveAsIcon from "@mui/icons-material/SaveAs";
 import DrawIcon from "@mui/icons-material/Draw";
 import { Link } from "react-router-dom";
+import { PostQuery } from "../hooks/usePost";
 interface Props {
-  setParams: ({ status, saved }: { status?: string; saved?: boolean }) => void;
+  setQuerySet: (query: PostQuery) => void;
+  querySet: PostQuery;
 }
-const SideBar = ({ setParams }: Props) => {
-  const [open, setOpen] = React.useState(true);
-
+const SideBar = ({ setQuerySet, querySet }: Props) => {
   return (
     <Stack direction="row">
       <List
@@ -36,7 +36,7 @@ const SideBar = ({ setParams }: Props) => {
           borderRight: `1px solid #354656`,
           "& .MuiListItemButton-root": {
             "&:hover": {
-              bgcolor: "#4a9d9c", // primary-200 for hover
+              bgcolor: "#1cf3f329", // primary-200 for hover
               color: "#FFFFFF", // Ensure contrast on hover
             },
           },
@@ -56,7 +56,12 @@ const SideBar = ({ setParams }: Props) => {
         }}
         component="nav"
       >
-        <ListItemButton component={Link} to="/feeds">
+        <ListItemButton
+          autoFocus
+          selected={querySet.saved == null}
+          component={Link}
+          to="/feeds"
+        >
           <ListItemIcon>
             <AutoStoriesIcon sx={{ color: "#afffff" }} /> {/* primary-300 */}
           </ListItemIcon>
@@ -64,9 +69,10 @@ const SideBar = ({ setParams }: Props) => {
         </ListItemButton>
         <ListItemButton
           component={Link}
+          selected={querySet.saved}
           to="/saved"
           onClick={() => {
-            setParams({ saved: true });
+            setQuerySet({ status: "all", saved: true });
           }}
         >
           <ListItemIcon>
@@ -78,7 +84,7 @@ const SideBar = ({ setParams }: Props) => {
           component={Link}
           to="/manage-post"
           onClick={() => {
-            setOpen(!open), setParams({ status: "all" });
+            setQuerySet({ saved: false, status: "all" });
           }}
         >
           <ListItemIcon>
@@ -93,8 +99,9 @@ const SideBar = ({ setParams }: Props) => {
               component={Link}
               to="/manage-post"
               sx={{ pl: 4 }}
+              selected={querySet.status == "published"}
               onClick={() => {
-                setParams({ status: "published" });
+                setQuerySet({ saved: false, status: "published" });
               }}
             >
               <ListItemIcon>
@@ -106,8 +113,9 @@ const SideBar = ({ setParams }: Props) => {
               component={Link}
               to="/manage-post"
               sx={{ pl: 4 }}
+              selected={querySet.status == "draft"}
               onClick={() => {
-                setParams({ status: "draft" });
+                setQuerySet({ saved: false, status: "draft" });
               }}
             >
               <ListItemIcon>

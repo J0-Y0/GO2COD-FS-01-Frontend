@@ -13,11 +13,11 @@ import PostCard, { PostCardSkeleton } from "../components/PostCard";
 import BottomBar from "../components/BottomBar";
 import usePost from "../hooks/usePost";
 interface Props {
-  saved?: boolean;
+  saved?: boolean | null;
 }
 const Feed = ({ saved }: Props) => {
   const { data, loading } = usePost({ saved: saved });
-
+  console.log(data);
   return (
     <>
       <Grid2

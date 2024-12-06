@@ -1,8 +1,5 @@
-import Landing from "./pages/Landing";
 import NavBar from "./components/Navbar";
-import { Box, Container, Grid2 } from "@mui/material";
-import { Login, X } from "@mui/icons-material";
-import Footer from "./components/Footer";
+import { Grid2 } from "@mui/material";
 import Feed from "./pages/Feed";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Signin from "./pages/Signin";
@@ -14,12 +11,11 @@ import CreatePost from "./pages/CreatePost";
 import ManagePosts from "./pages/ManagePosts";
 import { useState } from "react";
 import SideBar from "./components/SideBar";
-import { Params } from "./hooks/usePost";
+import { PostQuery } from "./hooks/usePost";
 
 function App() {
   // for filtering posts
-  const [param, setParam] = useState<Params>({ status: "all" });
-  console.log(param);
+  const [postQuery, setPostQuery] = useState<PostQuery>({} as PostQuery);
   return (
     <AuthContextProvider>
       <BrowserRouter>
@@ -37,17 +33,17 @@ function App() {
               height: "90vh",
             }}
           >
-            <SideBar setParams={setParam} />
+            <SideBar setQuerySet={setPostQuery} querySet={postQuery} />
           </Grid2>
 
           <Routes>
             {/* <Route path="/" element={<Landing />} /> */}
             <Route path="/feeds" element={<Feed />} />
-            <Route path="/saved" element={<Feed saved={param.saved} />} />
+            <Route path="/saved" element={<Feed saved={postQuery.saved} />} />
 
             <Route
               path="/manage-post"
-              element={<ManagePosts status={param.status} />}
+              element={<ManagePosts status={postQuery.status} />}
             />
             <Route path="/signin" element={<Signin />} />
             <Route path="/signup" element={<SignUp />} />

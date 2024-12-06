@@ -2,14 +2,14 @@ import { Box, Divider, Grid2, Stack, Typography } from "@mui/material";
 import PostLargeCard from "../components/PostLargeCard";
 import PostCard from "../components/PostCard";
 import BottomBar from "../components/BottomBar";
-import usePost from "../hooks/usePost";
+import usePost, { PostQuery } from "../hooks/usePost";
 interface Props {
-  status?: string;
-  // setStatus: (status: string) => void;
+  status: string | null;
 }
 
 const ManagePosts = ({ status }: Props) => {
-  const { data: posts } = usePost({ status: status });
+  const { data: posts } = usePost({ status: status } as PostQuery);
+  console.log(posts);
   return (
     <>
       <Grid2
