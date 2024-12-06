@@ -12,6 +12,7 @@ import ManagePosts from "./pages/ManagePosts";
 import { useState } from "react";
 import SideBar from "./components/SideBar";
 import { PostQuery } from "./hooks/usePost";
+import Landing from "./pages/Landing";
 
 function App() {
   // for filtering posts
@@ -20,11 +21,10 @@ function App() {
     <AuthContextProvider>
       <BrowserRouter>
         <NavBar />
-        {/* <Routes>
-          <Route path="/" element={<Landing />} />
-        </Routes> */}
+
         <Grid2 container spacing={1} sx={{ height: "90vh" }}>
           {/* Sidebar */}
+
           <Grid2
             size={{ sm: 4, md: 3, lg: 2 }}
             sx={{
@@ -45,13 +45,7 @@ function App() {
               path="/manage-post"
               element={<ManagePosts status={postQuery.status} />}
             />
-            <Route path="/signin" element={<Signin />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/password-reset" element={<PasswordReset />} />
-            <Route
-              path="/password-reset-confirm"
-              element={<PasswordResetConfirm />}
-            />
+
             <Route path="/create-post" element={<CreatePost />} />
           </Routes>
         </Grid2>
