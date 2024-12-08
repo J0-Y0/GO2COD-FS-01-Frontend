@@ -29,11 +29,7 @@ const PasswordReset = () => {
           onChange={(event) => setEmail(event.target.value)}
           type="email"
         />
-        {/* <Stack
-          direction="row"
-          alignItems="center"
-          justifyContent="space-between"
-        > */}
+
         <Button
           variant="contained"
           startIcon={<LockReset />}
@@ -43,7 +39,7 @@ const PasswordReset = () => {
         >
           Reset
         </Button>
-        <Button component={Link} to="/signin">
+        <Button component={Link} to="/account/signin">
           Cancel
         </Button>
         {/* </Stack> */}

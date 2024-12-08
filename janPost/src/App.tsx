@@ -13,6 +13,8 @@ import { useState } from "react";
 import SideBar from "./components/SideBar";
 import { PostQuery } from "./hooks/usePost";
 import Landing from "./pages/Landing";
+import SignIn from "./pages/Signin";
+import SignUpActivation from "./pages/SignUpActivation";
 
 function App() {
   // for filtering posts
@@ -40,13 +42,26 @@ function App() {
             {/* <Route path="/" element={<Landing />} /> */}
             <Route path="/feeds" element={<Feed />} />
             <Route path="/saved" element={<Feed saved={postQuery.saved} />} />
-
             <Route
               path="/manage-post"
               element={<ManagePosts status={postQuery.status} />}
             />
-
             <Route path="/create-post" element={<CreatePost />} />
+
+            <Route path="/account/signup" element={<SignUp />} />
+            <Route
+              path="/account/signup-activation"
+              element={<SignUpActivation />}
+            />
+
+            <Route path="/" element={<Landing />} />
+            <Route path="/account/signin" element={<SignIn />} />
+            <Route path="/account/password-reset" element={<PasswordReset />} />
+            <Route
+              path="/account/password-reset-confirm"
+              element={<PasswordResetConfirm />}
+            />
+            <Route path="/" element={<Landing />} />
           </Routes>
         </Grid2>
       </BrowserRouter>
