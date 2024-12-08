@@ -4,9 +4,9 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import CenteredCard from "../utils/CenteredCard";
 import { Link, useNavigate } from "react-router-dom";
-
 import useSignUp from "../hooks/auth/useSignUp";
-// import { useSignUp } from "../context/auth/hooks/useSignUp";
+
+// Schema for user sign-up validation
 export const UserSchema = z
   .object({
     first_name: z
@@ -36,7 +36,7 @@ export const UserSchema = z
   })
   .refine((data) => data.password === data.re_password, {
     message: "Passwords do not match.",
-    path: ["re_password"], // Error will be associated with the re_password field
+    path: ["re_password"],
   });
 
 type FormData = z.infer<typeof UserSchema>;
@@ -50,89 +50,85 @@ const SignUp = () => {
     resolver: zodResolver(UserSchema),
   });
 
-  const { data, loading, error: backend_error, registerUser } = useSignUp();
+  const { loading, error: backendError, registerUser } = useSignUp();
   const navigate = useNavigate();
+
+  const onSubmit = (data: FormData) => {
+    registerUser(data);
+    if (!backendError) {
+      navigate("/account/signup-activation");
+    }
+  };
 
   return (
     <CenteredCard
       headerText="Sign Up"
-      headerSubText="Please fill all the required fields."
+      headerSubText="Please fill in all required fields."
     >
-      <form
-        onSubmit={handleSubmit((dat) =>
-          // console.log(data);
-          {
-            registerUser(dat);
-            if (!!backend_error) {
-              navigate("/account/signup-activation");
-            }
-          }
-        )}
-      >
+      <form onSubmit={handleSubmit(onSubmit)}>
         <TextField
+          autoComplete="given-name"
           required
           {...register("first_name")}
           label="First name"
           variant="standard"
           sx={{ my: 1 }}
           fullWidth
-          error={!!errors.first_name || !!backend_error?.first_name} // Marks the field as errored if there's an error
-          helperText={errors.first_name?.message || ""} // Shows error message if available
+          error={!!errors.first_name || !!backendError?.first_name}
+          helperText={errors.first_name?.message || ""}
         />
         <TextField
+          autoComplete="family-name"
           {...register("last_name")}
           label="Last Name"
           variant="standard"
           sx={{ my: 1 }}
           fullWidth
-          error={!!errors.last_name} // Marks the field as errored if there's an error
-          helperText={errors.last_name?.message || ""} // Shows error message if available
+          error={!!errors.last_name}
+          helperText={errors.last_name?.message || ""}
         />
         <TextField
+          autoComplete="email"
           required
-          id="standard-basic"
-          label="Email"
           {...register("email")}
+          label="Email"
           type="email"
           variant="standard"
           sx={{ my: 1 }}
           fullWidth
-          error={!!errors.email || !!backend_error?.email} // Marks the field as errored if there's an error
-          helperText={errors.email?.message || backend_error?.email || ""} // Shows error message if available
+          error={!!errors.email || !!backendError?.email}
+          helperText={errors.email?.message || backendError?.email || ""}
         />
         <TextField
+          autoComplete="new-password"
           required
-          id="standard-basic"
-          label="Password"
           {...register("password")}
+          label="Password"
           type="password"
           variant="standard"
-          fullWidth
-          error={!!errors.password} // Marks the field as errored if there's an error
-          helperText={errors.password?.message || ""} // Shows error message if available
           sx={{ my: 1 }}
+          fullWidth
+          error={!!errors.password}
+          helperText={errors.password?.message || ""}
         />
         <TextField
+          autoComplete="new-password"
           required
-          id="standard-basic"
-          label="Confirm"
           {...register("re_password")}
+          label="Confirm Password"
           type="password"
           variant="standard"
-          fullWidth
-          error={!!errors.re_password} // Marks the field as errored if there's an error
-          helperText={errors.re_password?.message || ""} // Shows error message if available
           sx={{ my: 1 }}
+          fullWidth
+          error={!!errors.re_password}
+          helperText={errors.re_password?.message || ""}
         />
-
         <Button fullWidth sx={{ my: 2 }} variant="contained" type="submit">
           Sign up
         </Button>
         <Button component={Link} to="/account/signin">
-          Have account?
+          Already have an account?
         </Button>
-
-        {/* to="/login">Have account?</> */}
       </form>
     </CenteredCard>
   );

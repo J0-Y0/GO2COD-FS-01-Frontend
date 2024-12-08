@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import {
   List,
   ListItemButton,
@@ -10,7 +9,6 @@ import {
 } from "@mui/material";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import CreateIcon from "@mui/icons-material/Create";
-import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import AutoStoriesIcon from "@mui/icons-material/AutoStories";
 import PublishedWithChangesIcon from "@mui/icons-material/PublishedWithChanges";
@@ -91,9 +89,9 @@ const SideBar = ({ setQuerySet, querySet }: Props) => {
             <CreateIcon sx={{ color: "#afffff" }} /> {/* primary-300 */}
           </ListItemIcon>
           <ListItemText primary="Manage Posts" />
-          {open ? <ExpandLess /> : <ExpandMore />}
+          {<ExpandMore />}
         </ListItemButton>
-        <Collapse in={open} timeout="auto" unmountOnExit>
+        <Collapse in={true} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
             <ListItemButton
               component={Link}
