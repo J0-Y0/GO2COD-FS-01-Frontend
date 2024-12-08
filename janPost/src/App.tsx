@@ -15,57 +15,62 @@ import { PostQuery } from "./hooks/usePost";
 import Landing from "./pages/Landing";
 import SignIn from "./pages/Signin";
 import SignUpActivation from "./pages/SignUpActivation";
+import SignUpActivationSuccess from "./pages/SignUpActivationSuccess";
 
 function App() {
   // for filtering posts
   const [postQuery, setPostQuery] = useState<PostQuery>({} as PostQuery);
   return (
-    <AuthContextProvider>
-      <BrowserRouter>
-        <NavBar />
+    // <AuthContextProvider>
+    <BrowserRouter>
+      <NavBar />
 
-        <Grid2 container spacing={1} sx={{ height: "90vh" }}>
-          {/* Sidebar */}
+      <Grid2 container spacing={1} sx={{ height: "90vh" }}>
+        {/* Sidebar */}
 
-          <Grid2
-            size={{ sm: 4, md: 3, lg: 2 }}
-            sx={{
-              display: { xs: "none", sm: "block" },
-              overflowY: "hidden",
-              height: "90vh",
-            }}
-          >
-            <SideBar setQuerySet={setPostQuery} querySet={postQuery} />
-          </Grid2>
-
-          <Routes>
-            {/* <Route path="/" element={<Landing />} /> */}
-            <Route path="/feeds" element={<Feed />} />
-            <Route path="/saved" element={<Feed saved={postQuery.saved} />} />
-            <Route
-              path="/manage-post"
-              element={<ManagePosts status={postQuery.status} />}
-            />
-            <Route path="/create-post" element={<CreatePost />} />
-
-            <Route path="/account/signup" element={<SignUp />} />
-            <Route
-              path="/account/signup-activation"
-              element={<SignUpActivation />}
-            />
-
-            <Route path="/" element={<Landing />} />
-            <Route path="/account/signin" element={<SignIn />} />
-            <Route path="/account/password-reset" element={<PasswordReset />} />
-            <Route
-              path="/account/password-reset-confirm"
-              element={<PasswordResetConfirm />}
-            />
-            <Route path="/" element={<Landing />} />
-          </Routes>
+        <Grid2
+          size={{ sm: 4, md: 3, lg: 2 }}
+          sx={{
+            display: { xs: "none", sm: "block" },
+            overflowY: "hidden",
+            height: "90vh",
+          }}
+        >
+          <SideBar setQuerySet={setPostQuery} querySet={postQuery} />
         </Grid2>
-      </BrowserRouter>
-    </AuthContextProvider>
+
+        <Routes>
+          {/* <Route path="/" element={<Landing />} /> */}
+          <Route path="/feeds" element={<Feed />} />
+          <Route path="/saved" element={<Feed saved={postQuery.saved} />} />
+          <Route
+            path="/manage-post"
+            element={<ManagePosts status={postQuery.status} />}
+          />
+          <Route path="/create-post" element={<CreatePost />} />
+
+          <Route path="/account/signup" element={<SignUp />} />
+          <Route
+            path="/account/signup-activation"
+            element={<SignUpActivation />}
+          />
+          <Route
+            path="/account/activate/:uid/:token"
+            element={<SignUpActivationSuccess />}
+          />
+
+          <Route path="/" element={<Landing />} />
+          <Route path="/account/signin" element={<SignIn />} />
+          <Route path="/account/password-reset" element={<PasswordReset />} />
+          <Route
+            path="/account/password-reset-confirm"
+            element={<PasswordResetConfirm />}
+          />
+          <Route path="/" element={<Landing />} />
+        </Routes>
+      </Grid2>
+    </BrowserRouter>
+    // </AuthContextProvider>
   );
 }
 

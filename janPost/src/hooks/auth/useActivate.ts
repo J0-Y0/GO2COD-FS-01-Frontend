@@ -1,8 +1,8 @@
 import useData from "../useData";
 
-interface Query {
-    token: string;
-    uid: number;
+export interface Query {
+    token?: string;
+    uid?: string;
     
 }
 const useActivate = () => {
@@ -10,10 +10,12 @@ const useActivate = () => {
 
     const activate = (query: Query) => {
         postData(query)
-       return{loading,error}
+        
     }
 
     return {loading,data,error,activate}
 };
 
 export default useActivate;
+
+
