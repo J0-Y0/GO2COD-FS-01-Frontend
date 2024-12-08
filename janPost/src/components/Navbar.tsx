@@ -140,7 +140,7 @@ function ResponsiveAppBar() {
           <Button
             sx={{ marginX: 1 }}
             component={Link}
-            to="/signin"
+            to="/account/signin"
             variant="outlined"
           >
             Join us{" "}

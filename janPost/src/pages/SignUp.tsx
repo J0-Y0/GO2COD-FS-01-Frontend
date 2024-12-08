@@ -1,10 +1,12 @@
-import { Box, Button, TextField } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 // import { LoadingButton } from "../utils/Loading";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import CenteredCard from "../utils/CenteredCard";
-import { Link } from "react-router-dom";
+import { Link, redirect } from "react-router-dom";
+
+import useSignUp from "../hooks/auth/useSignUp";
 // import { useSignUp } from "../context/auth/hooks/useSignUp";
 export const UserSchema = z
   .object({
@@ -48,13 +50,25 @@ const SignUp = () => {
   } = useForm<FormData>({
     resolver: zodResolver(UserSchema),
   });
-  //   const signUp = useSignUp();
+
+  const { data, loading, error: backend_error, registerUser } = useSignUp();
+
   return (
     <CenteredCard
       headerText="Sign Up"
       headerSubText="Please fill all the required fields."
     >
-      <form onSubmit={handleSubmit((data) => console.log(data))}>
+      <form
+        onSubmit={handleSubmit((dat) =>
+          // console.log(data);
+          {
+            registerUser(dat);
+            if (!backend_error) {
+              redirect("/account/signup-success");
+            }
+          }
+        )}
+      >
         <TextField
           required
           {...register("first_name")}
@@ -62,7 +76,7 @@ const SignUp = () => {
           variant="standard"
           sx={{ my: 1 }}
           fullWidth
-          error={!!errors.first_name} // Marks the field as errored if there's an error
+          error={!!errors.first_name || !!backend_error?.first_name} // Marks the field as errored if there's an error
           helperText={errors.first_name?.message || ""} // Shows error message if available
         />
         <TextField
@@ -83,8 +97,8 @@ const SignUp = () => {
           variant="standard"
           sx={{ my: 1 }}
           fullWidth
-          error={!!errors.email} // Marks the field as errored if there's an error
-          helperText={errors.email?.message || ""} // Shows error message if available
+          error={!!errors.email || !!backend_error?.email} // Marks the field as errored if there's an error
+          helperText={errors.email?.message || backend_error?.email || ""} // Shows error message if available
         />
         <TextField
           required
@@ -114,7 +128,7 @@ const SignUp = () => {
         <Button fullWidth sx={{ my: 2 }} variant="contained" type="submit">
           Sign up
         </Button>
-        <Button component={Link} to="/signin">
+        <Button component={Link} to="/account/signin">
           Have account?
         </Button>
 

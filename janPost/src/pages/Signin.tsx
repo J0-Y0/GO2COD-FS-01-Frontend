@@ -48,10 +48,10 @@ const SignIn = () => {
         alignItems="center"
         width="100%"
       >
-        <Button variant="text" component={Link} to="/signup">
+        <Button variant="text" component={Link} to="/account/signup">
           Create account?
         </Button>
-        <Button variant="text" component={Link} to="/Password-reset">
+        <Button variant="text" component={Link} to="/account/Password-reset">
           Forgot Password?
         </Button>
       </Box>
