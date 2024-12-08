@@ -1,10 +1,9 @@
 import { Button, TextField } from "@mui/material";
-// import { LoadingButton } from "../utils/Loading";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import CenteredCard from "../utils/CenteredCard";
-import { Link, redirect } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import useSignUp from "../hooks/auth/useSignUp";
 // import { useSignUp } from "../context/auth/hooks/useSignUp";
@@ -52,6 +51,7 @@ const SignUp = () => {
   });
 
   const { data, loading, error: backend_error, registerUser } = useSignUp();
+  const navigate = useNavigate();
 
   return (
     <CenteredCard
@@ -63,8 +63,8 @@ const SignUp = () => {
           // console.log(data);
           {
             registerUser(dat);
-            if (!backend_error) {
-              redirect("/account/signup-success");
+            if (!!backend_error) {
+              navigate("/account/signup-activation");
             }
           }
         )}

@@ -1,9 +1,9 @@
-import { Box, Button, Divider, Link, Stack, Typography } from "@mui/material";
-import { MarkEmailRead, Replay } from "@mui/icons-material";
+import { Box, Button, Link, Stack, Typography } from "@mui/material";
+import { MarkEmailRead } from "@mui/icons-material";
 import mailSentGif from "../assets/mail_sent.gif"; // Ensure this path is correct
 import CenteredCard from "../utils/CenteredCard";
 
-const SignUpSuccess = () => {
+const SignUpActivation = () => {
   const mailGif = (
     <Box
       component="img"
@@ -12,7 +12,6 @@ const SignUpSuccess = () => {
       sx={{
         width: "90%",
         height: "auto",
-        borderRadius: "50%",
       }}
     />
   );
@@ -69,4 +68,4 @@ const SignUpSuccess = () => {
   );
 };
 
-export default SignUpSuccess;
+export default SignUpActivation;
