@@ -90,7 +90,7 @@ const SideBar = () => {
               component={Link}
               to="/my-post/?status=published"
               sx={{ pl: 4 }}
-              selected={location.search === "/my-post/?status=published"}
+              selected={location.search === "?status=published"}
             >
               <ListItemIcon>
                 <PublishedWithChangesIcon sx={{ color: "#afffff" }} />
@@ -101,7 +101,7 @@ const SideBar = () => {
               component={Link}
               to="/my-post/?status=draft"
               sx={{ pl: 4 }}
-              selected={location.search === "/my-post/?status=draft"}
+              selected={location.search === "?status=draft"}
             >
               <ListItemIcon>
                 <SaveAsIcon sx={{ color: "#afffff" }} />

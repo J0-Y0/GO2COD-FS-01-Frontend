@@ -14,7 +14,6 @@ import BottomBar from "../components/BottomBar";
 import usePost from "../hooks/usePost";
 import { PostData } from "../service/post_service";
 import { useSearchParams } from "react-router-dom";
-import { boolean } from "zod";
 
 interface FetchedResponse {
   count?: number;
