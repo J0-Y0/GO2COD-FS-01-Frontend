@@ -52,7 +52,6 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [message, setMessage] = useState<Message | null>(null);
   const login = (data: LoginField) => {
     setLoading(true);
-
     createJwt
       .create(data)
       .then((res) => {

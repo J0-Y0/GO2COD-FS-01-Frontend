@@ -73,7 +73,7 @@ function App() {
               path="/account/password-reset-confirm"
               element={<PasswordResetConfirm />}
             />
-            <Route path="/" element={<Landing />} />
+            <Route path="/" element={<Landing></Landing>} />
           </Routes>
         </Grid2>
         <Notification />
