@@ -5,6 +5,11 @@ export interface Entity {
     id: number;
     
 }
+interface FetchedResponse<T> {
+  count?: number;
+  results?: T[];
+}
+
 class httpService {
     endpoint: string;
     
@@ -13,12 +18,13 @@ class httpService {
     }
     getAll= <T>(requestConfig?:AxiosRequestConfig) => {
         const controller = new AbortController();
-        const request = api_client.get<T[]>(this.endpoint,{
+        const request = api_client.get<T>(this.endpoint,{
             signal: controller.signal,
             ...requestConfig,
         })
-        const cancel = () => controller.abort()
-        return { request, cancel }
+        console.log(requestConfig)
+        // const cancel = () => controller.abort()
+        return { request, cancel:()=> controller.abort() }
     }
     create =<T> (entity: T) => api_client.post(this.endpoint, entity)
     update = <T extends Entity>(entity: T) => api_client.put(this.endpoint + "/" + entity.id, entity)

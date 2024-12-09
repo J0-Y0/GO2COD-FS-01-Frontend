@@ -19,5 +19,11 @@ export interface PostData {
     category: "aaa" | "bbbb" | "cccc" | "dddd";
     author: User;
 }
+export interface FetchedResponse {
+  count?: number;
+  results?: PostData[];
+}
 
-    export default create("api/posts/");
+
+
+export default create("api/posts/");

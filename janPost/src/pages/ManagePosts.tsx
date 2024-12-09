@@ -2,14 +2,19 @@ import { Box, Divider, Grid2, Stack, Typography } from "@mui/material";
 import PostLargeCard from "../components/PostLargeCard";
 import PostCard from "../components/PostCard";
 import BottomBar from "../components/BottomBar";
-import usePost, { PostQuery } from "../hooks/usePost";
-interface Props {
-  status: string | null;
-}
+import usePost from "../hooks/usePost";
+import { useSearchParams } from "react-router-dom";
+// interface Props {
+//   status?: "published" | "draft" | "all";
+// }
 
-const ManagePosts = ({ status }: Props) => {
-  const { data: posts } = usePost({ status: status } as PostQuery);
-  console.log(posts);
+const ManagePosts = () => {
+  const [searchParams] = useSearchParams();
+  const status = searchParams.get("status");
+  const { loading, error, data } = usePost({
+    status: status ? status : "all",
+  });
+
   return (
     <>
       <Grid2
@@ -34,7 +39,7 @@ const ManagePosts = ({ status }: Props) => {
         </Box>
 
         <Stack spacing={3}>
-          {posts?.map((post) => <PostLargeCard post={post} key={post.id} />)}
+          {data?.map((post) => <PostLargeCard post={post} key={post.id} />)}
 
           {/* Loading Section */}
           {/* <Box
@@ -114,7 +119,7 @@ const ManagePosts = ({ status }: Props) => {
         </Box>
 
         <Stack spacing={2}>
-          {posts?.slice(0, 5).map((post) => (
+          {data?.slice(0, 5).map((post) => (
             <Box
               key={post.id}
               sx={{
