@@ -12,12 +12,20 @@ import PostLargeCard, {
 import PostCard, { PostCardSkeleton } from "../components/PostCard";
 import BottomBar from "../components/BottomBar";
 import usePost from "../hooks/usePost";
-interface Props {
-  saved?: boolean | null;
+import { PostData } from "../service/post_service";
+import { useSearchParams } from "react-router-dom";
+
+interface FetchedResponse {
+  count?: number;
+  results?: PostData[];
 }
-const Feed = ({ saved }: Props) => {
-  const { data, loading } = usePost({ saved: saved });
-  console.log(data);
+const Feed = () => {
+  const [searchParams] = useSearchParams();
+  const saved = searchParams.get("saved");
+  const { loading, error, data } = usePost({
+    saved: saved,
+  });
+
   return (
     <>
       <Grid2

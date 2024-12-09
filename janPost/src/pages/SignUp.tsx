@@ -1,10 +1,16 @@
-import { Button, TextField } from "@mui/material";
+import {
+  Button,
+  CircularProgress,
+  LinearProgress,
+  TextField,
+} from "@mui/material";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import CenteredCard from "../utils/CenteredCard";
-import { Link, useNavigate } from "react-router-dom";
-import useSignUp from "../hooks/auth/useSignUp";
+import { Link } from "react-router-dom";
+import { AuthContext } from "../hooks/auth/useAuth";
+import { useContext } from "react";
 
 // Schema for user sign-up validation
 export const UserSchema = z
@@ -50,14 +56,10 @@ const SignUp = () => {
     resolver: zodResolver(UserSchema),
   });
 
-  const { loading, error: backendError, registerUser } = useSignUp();
-  const navigate = useNavigate();
+  const { loading, sign_up } = useContext(AuthContext);
 
   const onSubmit = (data: FormData) => {
-    registerUser(data);
-    if (!backendError) {
-      navigate("/account/signup-activation");
-    }
+    sign_up(data);
   };
 
   return (
@@ -66,6 +68,8 @@ const SignUp = () => {
       headerSubText="Please fill in all required fields."
     >
       <form onSubmit={handleSubmit(onSubmit)}>
+        {loading && <LinearProgress />}
+
         <TextField
           autoComplete="given-name"
           required
@@ -74,7 +78,7 @@ const SignUp = () => {
           variant="standard"
           sx={{ my: 1 }}
           fullWidth
-          error={!!errors.first_name || !!backendError?.first_name}
+          error={!!errors.first_name}
           helperText={errors.first_name?.message || ""}
         />
         <TextField
@@ -96,8 +100,8 @@ const SignUp = () => {
           variant="standard"
           sx={{ my: 1 }}
           fullWidth
-          error={!!errors.email || !!backendError?.email}
-          helperText={errors.email?.message || backendError?.email || ""}
+          error={!!errors.email}
+          helperText={errors.email?.message}
         />
         <TextField
           autoComplete="new-password"
@@ -123,7 +127,26 @@ const SignUp = () => {
           error={!!errors.re_password}
           helperText={errors.re_password?.message || ""}
         />
-        <Button fullWidth sx={{ my: 2 }} variant="contained" type="submit">
+
+        <Button
+          disabled={loading}
+          fullWidth
+          sx={{ my: 2 }}
+          variant="contained"
+          type="submit"
+        >
+          {loading && (
+            <CircularProgress
+              size={24}
+              sx={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                marginTop: "-12px",
+                marginLeft: "-12px",
+              }}
+            />
+          )}
           Sign up
         </Button>
         <Button component={Link} to="/account/signin">

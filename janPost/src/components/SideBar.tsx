@@ -14,13 +14,12 @@ import AutoStoriesIcon from "@mui/icons-material/AutoStories";
 import PublishedWithChangesIcon from "@mui/icons-material/PublishedWithChanges";
 import SaveAsIcon from "@mui/icons-material/SaveAs";
 import DrawIcon from "@mui/icons-material/Draw";
-import { Link } from "react-router-dom";
-import { PostQuery } from "../hooks/usePost";
-interface Props {
-  setQuerySet: (query: PostQuery) => void;
-  querySet: PostQuery;
-}
-const SideBar = ({ setQuerySet, querySet }: Props) => {
+import { Link, useLocation, useSearchParams } from "react-router-dom";
+import { PostQueryParam } from "../hooks/usePost";
+
+const SideBar = () => {
+  const location = useLocation();
+
   return (
     <Stack direction="row">
       <List
@@ -55,8 +54,7 @@ const SideBar = ({ setQuerySet, querySet }: Props) => {
         component="nav"
       >
         <ListItemButton
-          autoFocus
-          selected={querySet.saved == null}
+          selected={location.pathname === "/feeds"}
           component={Link}
           to="/feeds"
         >
@@ -67,11 +65,8 @@ const SideBar = ({ setQuerySet, querySet }: Props) => {
         </ListItemButton>
         <ListItemButton
           component={Link}
-          selected={querySet.saved}
-          to="/saved"
-          onClick={() => {
-            setQuerySet({ status: "all", saved: true });
-          }}
+          selected={location.search === "?saved=true"}
+          to={"/feeds/?saved=" + true}
         >
           <ListItemIcon>
             <BookmarkIcon sx={{ color: "#afffff" }} /> {/* primary-300 */}
@@ -80,10 +75,8 @@ const SideBar = ({ setQuerySet, querySet }: Props) => {
         </ListItemButton>
         <ListItemButton
           component={Link}
-          to="/manage-post"
-          onClick={() => {
-            setQuerySet({ saved: false, status: "all" });
-          }}
+          to="/my-post"
+          selected={location.pathname === "/my-post"}
         >
           <ListItemIcon>
             <CreateIcon sx={{ color: "#afffff" }} /> {/* primary-300 */}
@@ -95,12 +88,9 @@ const SideBar = ({ setQuerySet, querySet }: Props) => {
           <List component="div" disablePadding>
             <ListItemButton
               component={Link}
-              to="/manage-post"
+              to="/my-post/?status=published"
               sx={{ pl: 4 }}
-              selected={querySet.status == "published"}
-              onClick={() => {
-                setQuerySet({ saved: false, status: "published" });
-              }}
+              selected={location.search === "?status=published"}
             >
               <ListItemIcon>
                 <PublishedWithChangesIcon sx={{ color: "#afffff" }} />
@@ -109,19 +99,21 @@ const SideBar = ({ setQuerySet, querySet }: Props) => {
             </ListItemButton>
             <ListItemButton
               component={Link}
-              to="/manage-post"
+              to="/my-post/?status=draft"
               sx={{ pl: 4 }}
-              selected={querySet.status == "draft"}
-              onClick={() => {
-                setQuerySet({ saved: false, status: "draft" });
-              }}
+              selected={location.search === "?status=draft"}
             >
               <ListItemIcon>
                 <SaveAsIcon sx={{ color: "#afffff" }} />
               </ListItemIcon>
               <ListItemText primary="Drafts" />
             </ListItemButton>
-            <ListItemButton sx={{ pl: 4 }} component={Link} to="/create-post">
+            <ListItemButton
+              sx={{ pl: 4 }}
+              component={Link}
+              to="/create-post"
+              selected={location.pathname === "/create-post"}
+            >
               <ListItemIcon>
                 <DrawIcon sx={{ color: "#afffff" }} />
               </ListItemIcon>
