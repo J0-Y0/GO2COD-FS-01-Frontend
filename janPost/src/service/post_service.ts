@@ -1,12 +1,9 @@
 import { AxiosRequestConfig } from "axios";
 import api_client,{CanceledError} from "./api_client";
 import create from "./http_service";
+import { User } from "./auth_service";
 export {CanceledError}
-interface User {
-  id: number;
-  first_name: string;
-  last_name: string;
-}
+
 
 export interface PostData {
     id: number;

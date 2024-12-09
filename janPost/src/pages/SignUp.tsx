@@ -4,7 +4,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import CenteredCard from "../utils/CenteredCard";
 import { Link, useNavigate } from "react-router-dom";
-import useSignUp from "../hooks/auth/useSignUp";
+import useAuth from "../hooks/auth/useAuth";
 
 // Schema for user sign-up validation
 export const UserSchema = z
@@ -50,14 +50,16 @@ const SignUp = () => {
     resolver: zodResolver(UserSchema),
   });
 
-  const { loading, error: backendError, registerUser } = useSignUp();
+  const { createUser } = useAuth();
   const navigate = useNavigate();
 
   const onSubmit = (data: FormData) => {
-    registerUser(data);
-    if (!backendError) {
-      navigate("/account/signup-activation");
-    }
+    createUser(data);
+    console.log("backendError=", backendError, "-----------");
+    console.log("===================");
+    // if (!backendError) {
+    //   navigate("/account/signup-activation");
+    // }
   };
 
   return (
