@@ -23,10 +23,14 @@ export interface LoginField {
   email: string,
   password: string,
 }
+export interface Message{
+  content: string,
+  severity:'error'|'info'|'success'|'warning'
+}
 
 
+export default  create("auth/users/");
 
-export default create("auth/users/");
-
+export const createJwt =create("auth/jwt/create")
 
 
