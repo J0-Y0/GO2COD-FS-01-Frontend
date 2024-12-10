@@ -17,7 +17,7 @@ import { BlogThemeContext } from "./BlogThemeProvider";
 import { DarkMode, LightMode } from "@mui/icons-material";
 import { AuthContext } from "../hooks/auth/useAuth";
 import { blue } from "@mui/material/colors";
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const settings = ["Profile", "Account", "Post Impression", "Logout"];
 
 function ResponsiveAppBar() {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
@@ -33,7 +33,7 @@ function ResponsiveAppBar() {
   };
 
   const themeObject = React.useContext(BlogThemeContext);
-  const { user } = React.useContext(AuthContext);
+  const { user, logout } = React.useContext(AuthContext);
 
   return (
     <AppBar
@@ -130,7 +130,14 @@ function ResponsiveAppBar() {
                 onClose={handleCloseUserMenu}
               >
                 {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                  <MenuItem
+                    key={setting}
+                    onClick={
+                      setting === "Logout"
+                        ? () => logout()
+                        : handleCloseUserMenu
+                    }
+                  >
                     <Typography sx={{ textAlign: "center" }}>
                       {setting}
                     </Typography>

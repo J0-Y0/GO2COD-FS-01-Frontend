@@ -126,6 +126,11 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     setUser(null);
     setToken("");
     localStorage.removeItem("user");
+    setMessage({
+      severity: "info",
+      content: "You have successfully logout ",
+    });
+    navigate("account/signin");
   };
   return (
     <AuthContext.Provider
