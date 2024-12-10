@@ -46,7 +46,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const storedInfo = localStorage.getItem("user")
     ? JSON.parse(localStorage.getItem("user") || "{}")
     : null;
-  const [user, setUser] = useState<User | null>(storedInfo?.first_name);
+  const [user, setUser] = useState<User | null>(storedInfo);
   const [token, setToken] = useState(storedInfo?.token || "");
   let navigate = useNavigate();
   const [loading, setLoading] = useState(false);

@@ -15,26 +15,17 @@ import AdbIcon from "@mui/icons-material/Adb";
 import { Link } from "react-router-dom";
 import { BlogThemeContext } from "./BlogThemeProvider";
 import { DarkMode, LightMode } from "@mui/icons-material";
-const pages = ["Products", "Pricing", "Blog"];
+import { AuthContext } from "../hooks/auth/useAuth";
+import { blue } from "@mui/material/colors";
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 function ResponsiveAppBar() {
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
-    null
-  );
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   );
 
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElNav(event.currentTarget);
-  };
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
   };
 
   const handleCloseUserMenu = () => {
@@ -42,7 +33,8 @@ function ResponsiveAppBar() {
   };
 
   const themeObject = React.useContext(BlogThemeContext);
-  // themeObject?.setTheme("dark");
+  const { user } = React.useContext(AuthContext);
+
   return (
     <AppBar
       position="sticky"
@@ -66,46 +58,12 @@ function ResponsiveAppBar() {
               letterSpacing: ".3rem",
               color: "inherit",
               textDecoration: "none",
+              flexGrow: 1,
             }}
           >
             ጃንpost
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{ display: { xs: "block", md: "none" } }}
-            >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography sx={{ textAlign: "center", color: "#787" }}>
-                    {page}
-                  </Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
+
           <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
           <Typography
             variant="h5"
@@ -125,57 +83,6 @@ function ResponsiveAppBar() {
           >
             ጃንpost
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, display: "block" }}
-              >
-                {page}
-              </Button>
-            ))}
-          </Box>
-
-          <Button
-            sx={{ marginX: 1 }}
-            component={Link}
-            to="/account/signin"
-            variant="outlined"
-          >
-            Join us{" "}
-          </Button>
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography sx={{ textAlign: "center" }}>
-                    {setting}
-                  </Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
           <IconButton
             color="primary"
             onClick={() =>
@@ -186,6 +93,61 @@ function ResponsiveAppBar() {
           >
             {themeObject?.theme == "light" ? <LightMode /> : <DarkMode />}
           </IconButton>
+
+          {!!user ? (
+            <Box
+              sx={{ flexGrow: 0, px: 1 }}
+              component={Button}
+              variant="outlined"
+            >
+              <Tooltip title="Open settings">
+                <>
+                  {" "}
+                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                    <Avatar sx={{ width: 24, height: 24, bgcolor: blue[700] }}>
+                      <b>ጃ</b>
+                    </Avatar>{" "}
+                    <Typography sx={{ color: blue[700] }}>
+                      {user.first_name}
+                    </Typography>
+                  </IconButton>
+                </>
+              </Tooltip>
+              <Menu
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                {settings.map((setting) => (
+                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                    <Typography sx={{ textAlign: "center" }}>
+                      {setting}
+                    </Typography>
+                  </MenuItem>
+                ))}
+              </Menu>
+            </Box>
+          ) : (
+            <Button
+              sx={{ marginX: 1 }}
+              component={Link}
+              to="/account/signin"
+              variant="outlined"
+            >
+              Join us
+            </Button>
+          )}
         </Toolbar>
       </Container>
     </AppBar>
