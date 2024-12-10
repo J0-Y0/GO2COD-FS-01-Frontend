@@ -1,9 +1,17 @@
-import { Box, Button, TextField } from "@mui/material";
+import {
+  Box,
+  Button,
+  CircularProgress,
+  LinearProgress,
+  TextField,
+} from "@mui/material";
 
 import { Lock } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import CenteredCard from "../utils/CenteredCard";
+import { useContext } from "react";
+import { AuthContext } from "../hooks/auth/useAuth";
 interface FormData {
   email: string;
   password: string;
@@ -11,17 +19,19 @@ interface FormData {
 
 const SignIn = () => {
   const { register, handleSubmit } = useForm<FormData>();
-
+  const { login, loading } = useContext(AuthContext);
   return (
     <CenteredCard
       headerIcon={<Lock />}
       headerText="Sign In"
       headerSubText="Welcome, please sign in to continue"
     >
-      <form onSubmit={handleSubmit((data) => console.log(data))}>
+      <form onSubmit={handleSubmit((data) => login(data))}>
+        {loading && <LinearProgress />}
         <TextField
           required
           label="Email"
+          value="yosef.emyayu1@gmail.com"
           type="email"
           {...register("email")}
           variant="outlined"
@@ -32,12 +42,32 @@ const SignIn = () => {
           required
           label="Password"
           type="password"
+          value="0921@BOA1"
           {...register("password")}
           variant="outlined"
           fullWidth
           sx={{ mb: 2 }}
         />
-        <Button variant="contained" type="submit" fullWidth sx={{ my: 2 }}>
+
+        <Button
+          disabled={loading}
+          variant="contained"
+          type="submit"
+          fullWidth
+          sx={{ my: 2 }}
+        >
+          {loading && (
+            <CircularProgress
+              size={24}
+              sx={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                marginTop: "-12px",
+                marginLeft: "-12px",
+              }}
+            />
+          )}
           Sign in
         </Button>
       </form>
