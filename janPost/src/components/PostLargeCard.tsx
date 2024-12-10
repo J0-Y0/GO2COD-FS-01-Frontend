@@ -14,7 +14,18 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { Box, Skeleton, Stack } from "@mui/material";
+import {
+  Box,
+  Button,
+  Divider,
+  Skeleton,
+  Stack,
+  TextField,
+} from "@mui/material";
+import CommentView from "./CommentView";
+import { PostData } from "../service/post_service";
+import { Send } from "@mui/icons-material";
+import CommentBox from "./CommentBox";
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
@@ -43,22 +54,8 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
     },
   ],
 }));
-
-interface User {
-  id: number;
-  first_name: string;
-  last_name: string;
-}
-interface PostData {
-  id: number;
-  title: string;
-  image: string;
-  excerpt: string;
-  content: string;
-  published_date: Date;
-  status: "draft" | "published";
-  category: "aaa" | "bbbb" | "cccc" | "dddd";
-  author: User;
+interface Props {
+  post: PostData;
 }
 
 export default function PostLargeCard({ post }: Props) {
@@ -81,7 +78,7 @@ export default function PostLargeCard({ post }: Props) {
             <MoreVertIcon />
           </IconButton>
         }
-        title={post.author.first_name + " " + post.author.last_name}
+        title={post.author?.first_name + " " + post.author?.last_name}
         subheader={post.time_difference}
       />
       <CardMedia
@@ -118,7 +115,13 @@ export default function PostLargeCard({ post }: Props) {
           </Typography>
           <Typography sx={{ marginBottom: 2 }}>{post.excerpt}</Typography>
           <Typography sx={{ marginBottom: 2 }}>{post.content}</Typography>
+          <Divider />
+
+          {post.comments &&
+            post.comments.map((comment) => <CommentView comment={comment} />)}
         </CardContent>
+        <CommentBox />
+        <Divider />
       </Collapse>
     </Card>
   );

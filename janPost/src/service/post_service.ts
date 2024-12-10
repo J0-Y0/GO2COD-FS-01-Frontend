@@ -6,15 +6,22 @@ export {CanceledError}
 
 
 export interface PostData {
-    id: number;
-    title: string;
-    image: string;
-    excerpt: string;
-    content: string;
-    published_date: Date;
-    status: "draft" | "published";
-    category: "aaa" | "bbbb" | "cccc" | "dddd";
-    author: User;
+  id: number;
+  title: string;
+  image?: string;
+  excerpt: string;
+  content: string;
+  published_date: Date;
+  status: "draft" | "published";
+  category?: "aaa" | "bbbb" | "cccc" | "dddd";
+  author: User;
+  time_difference?: string;
+  comments?:Comment[]
+}
+export interface  Comment {
+  author: User;
+  content: string;
+  published_date: string;
 }
 export interface FetchedResponse {
   count?: number;

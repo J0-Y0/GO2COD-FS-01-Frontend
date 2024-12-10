@@ -15,10 +15,6 @@ import usePost from "../hooks/usePost";
 import { PostData } from "../service/post_service";
 import { useSearchParams } from "react-router-dom";
 
-interface FetchedResponse {
-  count?: number;
-  results?: PostData[];
-}
 const Feed = () => {
   const [searchParams] = useSearchParams();
   const saved = searchParams.get("saved");
@@ -48,7 +44,7 @@ const Feed = () => {
               <PostLargeCardSkeleton />
             </>
           ) : (
-            data?.map((post) => <PostLargeCard post={post} key={post.id} />)
+            data?.map((post) => <PostLargeCard post={post} />)
           )}
 
           {/* Loading Section */}
