@@ -157,7 +157,7 @@ const Landing = () => {
             }}
             component={Link}
             variant="contained"
-            to="/signin "
+            to="account/signin "
           >
             Get Started
           </Button>

@@ -9,6 +9,7 @@ const Footer = () => {
       <Divider orientation="horizontal" flexItem />
 
       <Stack
+        width="100vw"
         direction="row"
         justifyContent="space-between"
         sx={{

@@ -8,12 +8,17 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import BlogThemeProvider from "./components/BlogThemeProvider.tsx";
 import AuthProvider from "./hooks/auth/useAuth.tsx";
+import { BrowserRouter } from "react-router-dom";
 
 createRoot(document.getElementById("root")!).render(
   // <StrictMode>
 
   <BlogThemeProvider>
-    <App />
+    <BrowserRouter>
+      <AuthProvider>
+        <App />
+      </AuthProvider>
+    </BrowserRouter>
   </BlogThemeProvider>
   // </StrictMode>
 );
