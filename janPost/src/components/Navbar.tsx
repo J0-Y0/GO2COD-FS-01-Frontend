@@ -134,7 +134,10 @@ function ResponsiveAppBar() {
                     key={setting}
                     onClick={
                       setting === "Logout"
-                        ? () => logout()
+                        ? () => {
+                            logout();
+                            handleCloseUserMenu();
+                          }
                         : handleCloseUserMenu
                     }
                   >
