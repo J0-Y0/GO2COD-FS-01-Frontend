@@ -67,7 +67,7 @@ function App() {
           <Route path="/account/signin" element={<SignIn />} />
           <Route path="/account/password-reset" element={<PasswordReset />} />
           <Route
-            path="/account/password-reset-confirm"
+            path="/account/password_reset/confirm/:uid/:token"
             element={<PasswordResetConfirm />}
           />
         </Routes>

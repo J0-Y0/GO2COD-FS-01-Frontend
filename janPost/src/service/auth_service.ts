@@ -31,11 +31,18 @@ export interface Message{
   severity:'error'|'info'|'success'|'warning'
 }
 
-
+export interface Query {
+    token?: string;
+  uid?: string;
+  new_password?:string
+    
+}
 export default  create("auth/users/");
 
 export const createJwt = create("auth/jwt/create")
 export const activateAcc = create("auth/users/activation/")
+export const resetAcc = create("auth/users/reset_password/")
+export const resetAccConfirm = create("auth/users/reset_password_confirm/")
 
 
 

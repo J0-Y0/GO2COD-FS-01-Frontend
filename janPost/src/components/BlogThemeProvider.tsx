@@ -1,4 +1,6 @@
 import { createTheme, ThemeProvider, CssBaseline } from "@mui/material";
+import { lightBlue, grey, blueGrey } from "@mui/material/colors";
+import { createContext, useState } from "react";
 
 const DarkBlogTheme = createTheme({
   palette: {
@@ -15,7 +17,7 @@ const DarkBlogTheme = createTheme({
     background: {
       default: "#0D1F2D", // bg-100
       paper: "#0D1F2D", // bg-200
-      // paper: "#1d2e3d", // bg-200
+      // paper: "#  1d2e3d", // bg-200
     },
     text: {
       primary: "#FFFFFF", // text-100
@@ -66,9 +68,6 @@ const DarkBlogTheme = createTheme({
     fontSize: 14,
   },
 });
-
-import { lightBlue, grey, blueGrey } from "@mui/material/colors";
-import { createContext, useState } from "react";
 
 const LightBlogTheme = createTheme({
   palette: {

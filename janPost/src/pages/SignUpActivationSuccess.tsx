@@ -1,4 +1,3 @@
-import useActivate, { Query } from "../hooks/auth/useActivate";
 import { useContext, useEffect } from "react";
 import CenteredCard from "../utils/CenteredCard";
 import { Button, LinearProgress, Typography } from "@mui/material";

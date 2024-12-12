@@ -1,8 +1,7 @@
 import { createContext, useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { redirect, useNavigate } from "react-router-dom";
 import auth_service, {
   activateAcc,
-  // auth,
   CanceledError,
   createJwt,
   LoginField,
@@ -10,9 +9,11 @@ import auth_service, {
   SignupField,
   Token,
   User,
+  resetAcc,
+  resetAccConfirm,
+  Query,
 } from "../../service/auth_service";
 import { jwtDecode } from "jwt-decode";
-import { Query } from "./useActivate";
 
 interface ProviderProps {
   user: User | null;
@@ -20,6 +21,8 @@ interface ProviderProps {
   login: (data: LoginField) => void;
   sign_up: (data: SignupField) => void;
   activate: (query: Query) => void;
+  reset: (email: string) => void;
+  passwordResetConfirm: (data: any) => void;
 
   logout(): void;
   loading: boolean;
@@ -34,6 +37,8 @@ export const AuthContext = createContext<ProviderProps>({
   logout: () => {},
   sign_up: () => {},
   activate: () => {},
+  reset: () => {},
+  passwordResetConfirm: () => {},
   loading: false,
   message: null,
   setMessage: () => {},
@@ -79,6 +84,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           "user",
           JSON.stringify({
             first_name: decodedUser.first_name,
+            last_name: decodedUser.last_name,
             user_id: decodedUser.user_id,
           })
         );
@@ -100,9 +106,6 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         });
 
         setLoading(false);
-        console.log("===================================");
-
-        console.log(err);
       });
   };
 
@@ -134,13 +137,57 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const activate = (query: Query) => {
     setLoading(true);
     activateAcc
-      .create<Query>(query)
+      .create(query)
       .then((res) => {
         setLoading(false);
         setMessage({
           severity: "success",
           content: "Account Activated Successfully   ",
         });
+      })
+      .catch((err) => {
+        if (err instanceof CanceledError) return;
+
+        setMessage({
+          severity: "error",
+          content: err.response.request.responseText,
+        });
+        setLoading(false);
+      });
+  };
+  const reset = (email: string) => {
+    setLoading(true);
+    resetAcc
+      .create({ email: email })
+      .then((res) => {
+        setLoading(false);
+        setMessage({
+          severity: "success",
+          content: "Account reset link sent to your email ,check your inbox  ",
+        });
+      })
+      .catch((err) => {
+        if (err instanceof CanceledError) return;
+
+        setMessage({
+          severity: "error",
+          content: err.response.request.responseText,
+        });
+        setLoading(false);
+      });
+  };
+  const passwordResetConfirm = (data: any) => {
+    setLoading(true);
+    resetAccConfirm
+      .create(data)
+      .then((res) => {
+        setLoading(false);
+        setMessage({
+          severity: "success",
+          content:
+            "your account has been reset successfully ,login to your account with your new password  ",
+        });
+        redirect("account/signin");
       })
       .catch((err) => {
         if (err instanceof CanceledError) return;
@@ -173,6 +220,8 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         logout,
         sign_up,
         activate,
+        reset,
+        passwordResetConfirm,
         loading,
         message,
         setMessage,

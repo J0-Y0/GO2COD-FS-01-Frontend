@@ -2,8 +2,10 @@ import { useParams } from "react-router-dom";
 import CenteredCard from "../utils/CenteredCard";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
-import { Button, TextField, Typography } from "@mui/material";
+import { Button, CircularProgress, TextField, Typography } from "@mui/material";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useContext } from "react";
+import { AuthContext } from "../hooks/auth/useAuth";
 
 const PasswordSchema = z
   .object({
@@ -37,7 +39,7 @@ const PasswordResetConfirm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>({ resolver: zodResolver(PasswordSchema) });
-
+  const { loading, passwordResetConfirm } = useContext(AuthContext);
   return (
     <CenteredCard
       headerText="Reset Your Password"
@@ -50,9 +52,11 @@ const PasswordResetConfirm = () => {
       </Typography>
       <form
         onSubmit={handleSubmit((data) => {
-          console.log(data);
-          console.log("uid: " + uid);
-          console.log("token: " + token);
+          passwordResetConfirm({
+            uid: uid,
+            token: token,
+            new_password: data.new_password,
+          });
         })}
       >
         <TextField
@@ -78,12 +82,24 @@ const PasswordResetConfirm = () => {
           helperText={errors.re_new_password?.message || ""}
         />
         <Button
+          disabled={loading}
           fullWidth
+          sx={{ my: 2 }}
           variant="contained"
-          color="primary"
-          sx={{ my: 2, py: 1 }}
           type="submit"
         >
+          {loading && (
+            <CircularProgress
+              size={24}
+              sx={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                marginTop: "-12px",
+                marginLeft: "-12px",
+              }}
+            />
+          )}
           Save New Password
         </Button>
       </form>
