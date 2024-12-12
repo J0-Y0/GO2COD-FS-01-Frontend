@@ -17,7 +17,7 @@ import Footer from "../components/Footer";
 import usePost from "../hooks/usePost";
 
 const Landing = () => {
-  const { posts } = usePost();
+  const { data: posts } = usePost();
   return (
     <>
       <Container maxWidth="xl">
@@ -83,25 +83,6 @@ const Landing = () => {
             </Grid2>
           </Grid2>
         </Paper>
-        <ButtonGroup
-          sx={{
-            position: "sticky",
-            top: 62,
-            bgcolor: "#1d2e3d",
-            paddingY: 1,
-            zIndex: 2,
-          }}
-          fullWidth
-          variant="outlined"
-          aria-label="Basic button group"
-          size="small"
-        >
-          <Button color="primary">All Articles</Button>
-          <Button>WebDevelopment</Button>
-          <Button>Cyber Security</Button>
-          <Button>Database</Button>
-          <Button>Database</Button>
-        </ButtonGroup>
 
         <Stack
           spacing={{ xs: 1, sm: 2 }}
@@ -111,6 +92,26 @@ const Landing = () => {
           sx={{ flexWrap: "wrap" }}
           justifyContent="space-evenly"
         >
+          {" "}
+          <ButtonGroup
+            sx={{
+              position: "sticky",
+              top: 0,
+              bgcolor: "#1d2e3d",
+              paddingY: 1,
+              zIndex: 10,
+            }}
+            fullWidth
+            variant="contained"
+            aria-label="Basic button group"
+            size="small"
+          >
+            <Button color="secondary">Random</Button>
+            <Button>WebDevelopment</Button>
+            <Button>Cyber Security</Button>
+            <Button>Networking</Button>
+            <Button>Database</Button>
+          </ButtonGroup>
           {posts?.slice(0, 6).map((post) => <PostCard post={post} />)}
         </Stack>
         <Box
@@ -150,14 +151,14 @@ const Landing = () => {
           <Button
             sx={{
               px: 4,
-              py: 1.5,
+              py: 2,
               color: "var(--text-100)",
               fontWeight: "bold",
               borderRadius: 8,
             }}
             component={Link}
             variant="contained"
-            to="/signin "
+            to="account/signin "
           >
             Get Started
           </Button>

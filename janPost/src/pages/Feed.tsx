@@ -48,43 +48,45 @@ const Feed = () => {
           )}
 
           {/* Loading Section */}
-          <Box
-            display="flex"
-            flexDirection="column"
-            alignItems="center"
-            gap={1}
-          >
-            <CircularProgress
-              size={40}
-              thickness={5}
-              sx={{
-                color: "primary.light",
-                animation: "spin 1s linear infinite",
-              }}
-            />
-            <Typography
-              textAlign="center"
-              variant="h6"
-              sx={{
-                fontWeight: 500,
-                color: "text.secondary",
-                letterSpacing: 1.2,
-              }}
+          {!saved && (
+            <Box
+              display="flex"
+              flexDirection="column"
+              alignItems="center"
+              gap={1}
             >
-              Loading . . .
-            </Typography>
-            <Typography
-              textAlign="center"
-              variant="body2"
-              sx={{
-                color: "text.secondary",
-                fontStyle: "italic",
-                letterSpacing: 1.1,
-              }}
-            >
-              Fetching the latest blogs for your preferences
-            </Typography>
-          </Box>
+              <CircularProgress
+                size={40}
+                thickness={5}
+                sx={{
+                  color: "primary.light",
+                  animation: "spin 1s linear infinite",
+                }}
+              />
+              <Typography
+                textAlign="center"
+                variant="h6"
+                sx={{
+                  fontWeight: 500,
+                  color: "text.secondary",
+                  letterSpacing: 1.2,
+                }}
+              >
+                Loading . . .
+              </Typography>
+              <Typography
+                textAlign="center"
+                variant="body2"
+                sx={{
+                  color: "text.secondary",
+                  fontStyle: "italic",
+                  letterSpacing: 1.1,
+                }}
+              >
+                Fetching the latest blogs for your preferences
+              </Typography>
+            </Box>
+          )}
         </Stack>
       </Grid2>
       {/* Last Visited */}

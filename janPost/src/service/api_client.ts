@@ -1,12 +1,17 @@
 import axios,{ CanceledError }  from "axios";
+import useAuth from "../hooks/useAuthddd0ld";
+import { useContext } from "react";
+import { AuthContext } from "../hooks/auth/useAuth";
 
-
+let storedToken = localStorage.getItem("authToken")
+    ? JSON.parse(localStorage.getItem("authToken") || "{}")
+    : null;
 export default axios.create(
     {
         baseURL: "http://127.0.0.1:8000/",
-        // headers: {
-        //     Authorization: "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzNjgxODU0LCJpYXQiOjE3MzM1MDkwNTQsImp0aSI6ImQ5NDExMWI0YWUzMjRkZWU4YzcwNzg5YTI4OTc4MjRiIiwidXNlcl9pZCI6MTIxfQ.IJFyFcYo8Ii7Pz3ChBPz3tSrWZKbPjsAXGU0Z0AcEEk"
-        // }
+        headers: {
+            Authorization:storedToken? "JWT " + storedToken.access:""
+        }
                     
         
 

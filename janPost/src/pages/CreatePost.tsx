@@ -12,7 +12,6 @@ import {
 } from "@mui/material";
 import Grid2 from "@mui/material/Grid2"; // Import Grid2
 import { useForm } from "react-hook-form";
-import SideBar from "../components/SideBar";
 
 interface PostData {
   title: string;
@@ -164,10 +163,23 @@ const CreatePost: React.FC = () => {
                 {...register("category", { required: "Category is required" })}
                 defaultValue=""
               >
-                <MenuItem value="aaa">AAA</MenuItem>
-                <MenuItem value="bbbb">BBBB</MenuItem>
-                <MenuItem value="cccc">CCCC</MenuItem>
-                <MenuItem value="dddd">DDDD</MenuItem>
+                <MenuItem value="web-development">Web Development</MenuItem>
+                <MenuItem value="computer-networking">
+                  Computer Networking
+                </MenuItem>
+                <MenuItem value="data-science">Data Science</MenuItem>
+                <MenuItem value="cybersecurity">Cybersecurity</MenuItem>
+                <MenuItem value="software-engineering">
+                  Software Engineering
+                </MenuItem>
+                <MenuItem value="artificial-intelligence">
+                  Artificial Intelligence
+                </MenuItem>
+                <MenuItem value="cloud-computing">Cloud Computing</MenuItem>
+                <MenuItem value="programming-languages">
+                  Programming Languages
+                </MenuItem>{" "}
+                <MenuItem value="programming-languages">Other</MenuItem>
               </Select>
             </FormControl>
             {/* Status Dropdown */}

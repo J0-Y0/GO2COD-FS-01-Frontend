@@ -4,7 +4,10 @@ import create from './http_service';
 export {CanceledError}
 
 
-
+export interface Token {
+  access: string;
+  refresh: string,
+}
 export interface User {
   user_id?: string;
   first_name?: string,
@@ -31,6 +34,9 @@ export interface Message{
 
 export default  create("auth/users/");
 
-export const createJwt =create("auth/jwt/create")
+export const createJwt = create("auth/jwt/create")
+export const activateAcc = create("auth/users/activation/")
+
+
 
 

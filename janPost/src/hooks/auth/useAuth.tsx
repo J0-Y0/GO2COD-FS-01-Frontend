@@ -1,21 +1,26 @@
 import { createContext, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import auth_service, {
+  activateAcc,
   // auth,
   CanceledError,
   createJwt,
   LoginField,
   Message,
   SignupField,
+  Token,
   User,
 } from "../../service/auth_service";
 import { jwtDecode } from "jwt-decode";
+import { Query } from "./useActivate";
 
 interface ProviderProps {
   user: User | null;
-  token: string;
+  token: Token | null;
   login: (data: LoginField) => void;
   sign_up: (data: SignupField) => void;
+  activate: (query: Query) => void;
+
   logout(): void;
   loading: boolean;
   message: Message | null;
@@ -24,10 +29,11 @@ interface ProviderProps {
 
 export const AuthContext = createContext<ProviderProps>({
   user: null,
-  token: "",
+  token: null,
   login: () => {},
   logout: () => {},
   sign_up: () => {},
+  activate: () => {},
   loading: false,
   message: null,
   setMessage: () => {},
@@ -46,8 +52,12 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const storedInfo = localStorage.getItem("user")
     ? JSON.parse(localStorage.getItem("user") || "{}")
     : null;
+  const storedToken = localStorage.getItem("authToken")
+    ? JSON.parse(localStorage.getItem("authToken") || "{}")
+    : null;
+
   const [user, setUser] = useState<User | null>(storedInfo);
-  const [token, setToken] = useState(storedInfo?.token || "");
+  const [token, setToken] = useState<Token | null>(storedToken);
   let navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<Message | null>(null);
@@ -121,11 +131,33 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         setLoading(false);
       });
   };
+  const activate = (query: Query) => {
+    setLoading(true);
+    activateAcc
+      .create<Query>(query)
+      .then((res) => {
+        setLoading(false);
+        setMessage({
+          severity: "success",
+          content: "Account Activated Successfully   ",
+        });
+      })
+      .catch((err) => {
+        if (err instanceof CanceledError) return;
+
+        setMessage({
+          severity: "error",
+          content: err.response.request.responseText,
+        });
+        setLoading(false);
+      });
+  };
 
   const logout = () => {
     setUser(null);
-    setToken("");
+    setToken(null);
     localStorage.removeItem("user");
+    localStorage.removeItem("authToken");
     setMessage({
       severity: "info",
       content: "You have successfully logout ",
@@ -140,6 +172,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         login,
         logout,
         sign_up,
+        activate,
         loading,
         message,
         setMessage,
