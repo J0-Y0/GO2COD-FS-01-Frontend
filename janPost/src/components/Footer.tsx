@@ -1,5 +1,4 @@
 import { Box, Divider, Stack, Typography } from "@mui/material";
-import React from "react";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import XIcon from "@mui/icons-material/X";

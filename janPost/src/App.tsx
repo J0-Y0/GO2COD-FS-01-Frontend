@@ -30,8 +30,8 @@ function App() {
   ];
   return (
     <>
+      {" "}
       <NavBar />
-
       <Grid2 container spacing={1} sx={{ height: "90vh" }}>
         {sidebarRoutes.includes(location.pathname) && (
           <Grid2

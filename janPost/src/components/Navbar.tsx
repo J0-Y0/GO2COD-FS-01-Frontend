@@ -40,7 +40,7 @@ function ResponsiveAppBar() {
       position="sticky"
       color="inherit"
       elevation={0}
-      sx={{ borderBottom: "1px lightgray solid" }}
+      sx={{ borderBottom: "1px gray solid", zIndex: 4 }}
     >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
