@@ -15,6 +15,7 @@ import SignUpActivation from "./pages/SignUpActivation";
 import SignUpActivationSuccess from "./pages/SignUpActivationSuccess";
 import Notification from "./components/Notification";
 import AuthProvider from "./hooks/auth/useAuth";
+import PrivateWrapper from "./components/PrivateWrapper";
 
 function App() {
   const location = useLocation();
@@ -48,11 +49,12 @@ function App() {
         <Routes>
           <Route path="/" element={<Landing></Landing>} />
 
-          <Route path="/feeds" element={<Feed />} />
-          <Route path="/feeds" element={<Feed />} />
-          <Route path="/my-post" element={<ManagePosts />} />
-          <Route path="/create-post" element={<CreatePost />} />
-
+          {/* here make them private */}
+          <Route element={<PrivateWrapper />}>
+            <Route path="/feeds" element={<Feed />} />
+            <Route path="/my-post" element={<ManagePosts />} />
+            <Route path="/create-post" element={<CreatePost />} />
+          </Route>
           <Route path="/account/signup" element={<SignUp />} />
           <Route
             path="/account/signup-activation"
@@ -62,8 +64,6 @@ function App() {
             path="/account/activate/:uid/:token"
             element={<SignUpActivationSuccess />}
           />
-
-          <Route path="/" element={<Landing />} />
           <Route path="/account/signin" element={<SignIn />} />
           <Route path="/account/password-reset" element={<PasswordReset />} />
           <Route
