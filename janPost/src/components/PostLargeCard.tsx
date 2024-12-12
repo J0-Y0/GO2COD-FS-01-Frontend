@@ -15,6 +15,7 @@ import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import {
+  Badge,
   Box,
   Button,
   Divider,
@@ -24,7 +25,7 @@ import {
 } from "@mui/material";
 import CommentView from "./CommentView";
 import { PostData } from "../service/post_service";
-import { Send } from "@mui/icons-material";
+import { Bookmark, Comment, Send } from "@mui/icons-material";
 import CommentBox from "./CommentBox";
 
 interface ExpandMoreProps extends IconButtonProps {
@@ -89,16 +90,31 @@ export default function PostLargeCard({ post }: Props) {
         alt="Paella dish"
       />
       <CardContent>
-        <Typography variant="body2" sx={{ color: "text.secondary" }}>
+        <Typography
+          variant="body2"
+          sx={{ display: "inline", color: "text.secondary" }}
+        >
           {post.excerpt}
         </Typography>
+        <Button sx={{ display: "inline" }} size="small" variant="text">
+          Read More...
+        </Button>
       </CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
           <FavoriteIcon />
         </IconButton>
+        <IconButton aria-label="save">
+          <Bookmark />
+        </IconButton>
         <IconButton aria-label="share">
           <ShareIcon />
+        </IconButton>
+
+        <IconButton aria-label="comment" onClick={handleExpandClick}>
+          <Badge badgeContent={post.comments?.length} color="secondary">
+            <Comment />
+          </Badge>
         </IconButton>
         <ExpandMore
           expand={expanded}

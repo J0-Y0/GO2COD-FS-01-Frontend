@@ -31,7 +31,6 @@ const SignIn = () => {
         <TextField
           required
           label="Email"
-          value="yosef.emyayu1@gmail.com"
           type="email"
           {...register("email")}
           variant="outlined"
@@ -42,7 +41,6 @@ const SignIn = () => {
           required
           label="Password"
           type="password"
-          value="0921@BOA1"
           {...register("password")}
           variant="outlined"
           fullWidth
