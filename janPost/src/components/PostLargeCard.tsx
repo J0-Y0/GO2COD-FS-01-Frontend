@@ -85,7 +85,7 @@ export default function PostLargeCard({ post }: Props) {
       <CardMedia
         component="img"
         height="194"
-        image={`https://picsum.photos/id/${post.id}/500/500`}
+        image={`https://picsum.photos/id/${post.id - 1}/500/300`}
         // image={post?.image}
         alt="Paella dish"
       />

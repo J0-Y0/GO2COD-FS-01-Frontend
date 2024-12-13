@@ -7,7 +7,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { LockReset } from "@mui/icons-material";
+import { LockReset, MarkEmailRead } from "@mui/icons-material";
 import CenteredCard from "../utils/CenteredCard";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../hooks/auth/useAuth";
@@ -29,47 +29,61 @@ const PasswordReset = () => {
       >
         {!!loading && <LinearProgress />}{" "}
         <Typography py={2} color={message?.severity} sx={{ width: "100%" }}>
-          {message?.content || "Something went wrong."} {/* Default message */}
+          {message?.content} {/* Default message */}
         </Typography>{" "}
-        <form onSubmit={handleSubmit}>
-          <TextField
-            fullWidth
-            label="Your Email"
-            variant="standard"
-            required
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-            type="email"
-          />
-
+        {message?.severity === "success" ? (
           <Button
-            disabled={loading}
-            startIcon={<LockReset />}
-            fullWidth
-            sx={{ my: 2 }}
-            variant="contained"
-            type="submit"
+            variant="outlined"
+            startIcon={<MarkEmailRead />}
+            component="a"
+            href="https://mail.google.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            sx={{ mb: 2 }}
           >
-            {loading && (
-              <CircularProgress
-                size={24}
-                sx={{
-                  position: "absolute",
-                  top: "50%",
-                  left: "50%",
-                  marginTop: "-12px",
-                  marginLeft: "-12px",
-                }}
-              />
-            )}
-            Sign up
+            Open Gmail
           </Button>
+        ) : (
+          <form onSubmit={handleSubmit}>
+            <TextField
+              fullWidth
+              label="Your Email"
+              variant="standard"
+              required
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+              type="email"
+            />
 
-          <Button component={Link} to="/account/signin">
-            Cancel
-          </Button>
-          {/* </Stack> */}
-        </form>
+            <Button
+              disabled={loading}
+              startIcon={<LockReset />}
+              fullWidth
+              sx={{ my: 2 }}
+              variant="contained"
+              type="submit"
+            >
+              {loading && (
+                <CircularProgress
+                  size={24}
+                  sx={{
+                    position: "absolute",
+                    top: "50%",
+                    left: "50%",
+                    marginTop: "-12px",
+                    marginLeft: "-12px",
+                  }}
+                />
+              )}
+              Rest
+            </Button>
+
+            <Button component={Link} to="/account/signin">
+              Cancel
+            </Button>
+            {/* </Stack> */}
+          </form>
+        )}
       </CenteredCard>
     </>
   );

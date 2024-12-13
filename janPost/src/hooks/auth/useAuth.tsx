@@ -187,7 +187,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           content:
             "your account has been reset successfully ,login to your account with your new password  ",
         });
-        redirect("account/signin");
+        navigate("/account/signin");
       })
       .catch((err) => {
         if (err instanceof CanceledError) return;
